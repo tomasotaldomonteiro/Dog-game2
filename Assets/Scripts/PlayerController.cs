@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private Collider2D _col;
     private RaycastHit2D _groundCheck;
+     private MovingPlatform currentPlatform; 
     
     private float horizontal_input;
 
@@ -271,6 +272,22 @@ public class PlayerController : MonoBehaviour
 
         }
     
+    }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            currentPlatform = collision.gameObject.GetComponent<MovingPlatform>();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            currentPlatform = null;
+        }
     }
 
 }

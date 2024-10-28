@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Multiplatform-Project-main.sln"
+    "dotnet.defaultSolution": "Dog-game2.sln"
 }
