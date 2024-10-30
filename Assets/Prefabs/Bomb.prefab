@@ -205,6 +205,9 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 64
+  dynamicObjectMask:
+    serializedVersion: 2
+    m_Bits: 256
   touchedSomething: 0
 --- !u!1 &4765454100321352327
 GameObject:
