@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CheackPoint
   - MovingPlatform
+  - Teleportor
   layers:
   - Default
   - TransparentFX
