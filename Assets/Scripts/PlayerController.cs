@@ -133,13 +133,13 @@ public class PlayerController : MonoBehaviour{
         if (horizontal_input <= 0 && _rb.velocity.x > 0.15){
             
             _rb.velocity += new Vector2(-decceleration, 0) * Time.deltaTime;
-            animator.SetBool("move", true);
+            animator.SetBool("Move", true);
         
          //slowdown code if no left input is made but still moving
         }else if (horizontal_input >= 0 && _rb.velocity.x < -0.15){
 
             _rb.velocity += new Vector2(decceleration, 0) * Time.deltaTime;
-            animator.SetBool("move", true);
+            animator.SetBool("Move", true);
         }
         
         
@@ -271,4 +271,6 @@ public class PlayerController : MonoBehaviour{
             currentPlatform = null;
         }
     }
+
+    
 }
