@@ -8,11 +8,15 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour{
     
+    public bool isBouncingFromJumpPad = false;  // Flag to indicate bounce state
+    private float bounceDisableJumpTimer = 0f;
     private Rigidbody2D _rb;
     private Collider2D _col;
     private RaycastHit2D _groundCheck;
     private MovingPlatform currentPlatform; 
     private Animator animator;
+
+    
     
     private float horizontal_input;
 
@@ -62,26 +66,21 @@ public class PlayerController : MonoBehaviour{
     }
 
     // Update is called once per frame
-    private void Update(){
-
-        if (!atHighSpeeds){
-
+ private void Update()
+    {
+        if (!atHighSpeeds)
+        {
             movement();
-
             jump();
-
         }
 
+        if (bounceDisableJumpTimer > 0) bounceDisableJumpTimer -= Time.deltaTime;
+
         clampFalling();
-
         checkGround();
-
         turnCheck();
-
         highSpeeds();
-
         gravityControl();
-
     }
 
     private void gravityControl()
@@ -152,8 +151,9 @@ public class PlayerController : MonoBehaviour{
     }
 
     private void jump(){
-        
-         //JUMP BUFFERING
+        if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return; // Skip jump if bouncing or timer is active
+
+        //JUMP BUFFERING
         if (Input.GetButtonDown("Jump")){
             jumpBufferTimer = jumpBufferTime;
             initialJumpY = transform.position.y; 
@@ -191,8 +191,19 @@ public class PlayerController : MonoBehaviour{
         if (isGrounded){
             _rb.gravityScale = gravity;
         }
+
+        
     }
 
+
+
+    public void DisableJumpForBounce(float duration)
+    {
+        bounceDisableJumpTimer = duration;
+    }
+    
+
+    
     private void clampFalling(){
         
         if (_rb.velocity.y < fallingTopSpeed){

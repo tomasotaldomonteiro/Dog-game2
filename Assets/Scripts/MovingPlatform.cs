@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 
 public class MovingPlatform : MonoBehaviour
 {
-   public Transform posA, posB;
-   public int Speed;
-   Vector2 targetPos;
+   [SerializeField] private Transform posA, posB;
+   [SerializeField] private int Speed;
+   [SerializeField] private Vector2 targetPos;
 
    void Start()
    {
@@ -25,22 +25,7 @@ public class MovingPlatform : MonoBehaviour
 
    }
 
-   private void OnTriggerEnter2D(Collider2D collision)
-   {
-      if(collision.CompareTag("Player"))
-      {
-         collision.transform.parent = this.transform;
-      }
-   }
-
-   private void OnTriggerExit2D(Collider2D collision)
-   {
-      if(collision.CompareTag("Player"))
-      {
-         collision.transform.parent = null;
-      }
-   }
-
+  
  
 
 

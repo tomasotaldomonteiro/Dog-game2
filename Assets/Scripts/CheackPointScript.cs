@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheackPointScript : MonoBehaviour
 {
-    private RespawnScript respawn;
+    [SerializeField] private RespawnScript respawn;
 
     void Awake()
     {
