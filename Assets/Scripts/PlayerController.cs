@@ -1,14 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour{
     
-    public bool isBouncingFromJumpPad = false;  // Flag to indicate bounce state
+    public bool isBouncingFromJumpPad = false; 
     private float bounceDisableJumpTimer = 0f;
     private Rigidbody2D _rb;
     private Collider2D _col;
@@ -16,6 +19,9 @@ public class PlayerController : MonoBehaviour{
     private MovingPlatform currentPlatform; 
     private Animator animator;
 
+    public ProjectileBehavior projectilePrefab;
+    public Transform LaunchOffset;
+    public Text WinText;
     
     
     private float horizontal_input;
@@ -51,6 +57,8 @@ public class PlayerController : MonoBehaviour{
     [SerializeField] public bool atHighSpeeds;
     [SerializeField] private float atHighSpeedTime = 1f;
 
+    [SerializeField] private GameObject throwDirection;
+
     private float atHighSpeedTimer;
 
     // Start is called before the first frame update
@@ -65,9 +73,19 @@ public class PlayerController : MonoBehaviour{
         atHighSpeedTimer = atHighSpeedTime;
     }
 
-    // Update is called once per frame
- private void Update()
+    
+
+     [SerializeField] private float projectileCooldown = 3f; 
+     [SerializeField] private float lastProjectileTime = 0f; 
+    
+    private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.E) && Time.time >= lastProjectileTime + projectileCooldown)
+        {
+            Instantiate(projectilePrefab, LaunchOffset.position, transform.rotation);
+            lastProjectileTime = Time.time;
+        }
+
         if (!atHighSpeeds)
         {
             movement();
@@ -80,17 +98,16 @@ public class PlayerController : MonoBehaviour{
         checkGround();
         turnCheck();
         highSpeeds();
-        gravityControl();
+        gravityControl(); 
     }
 
     private void gravityControl()
     {
         if (!isGrounded)
         {
-            // Increase the gravity scale while falling
             currentGravityScale += gravityIncreaseRate * Time.deltaTime;
-            currentGravityScale = Mathf.Min(currentGravityScale, maxGravityScale); // Limit the gravity scale
-            _rb.gravityScale = currentGravityScale; // Apply the current gravity scale
+            currentGravityScale = Mathf.Min(currentGravityScale, maxGravityScale); 
+            _rb.gravityScale = currentGravityScale; 
         }
         else
         {
@@ -151,7 +168,7 @@ public class PlayerController : MonoBehaviour{
     }
 
     private void jump(){
-        if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return; // Skip jump if bouncing or timer is active
+        if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return; 
 
         //JUMP BUFFERING
         if (Input.GetButtonDown("Jump")){
@@ -231,25 +248,21 @@ public class PlayerController : MonoBehaviour{
             _color = Color.cyan;
         }
 
-        //Draws the _groundCheck lower and side bounds to give feedback while testing in the editor
+        
         Debug.DrawRay(_col.bounds.center + new Vector3(_col.bounds.extents.x, 0), Vector2.down * (_col.bounds.extents.y + 0.05f), _color);
         Debug.DrawRay(_col.bounds.center - new Vector3(_col.bounds.extents.x, 0), Vector2.down * (_col.bounds.extents.y + 0.05f), _color);
         Debug.DrawRay(_col.bounds.center - new Vector3(_col.bounds.extents.x, _col.bounds.extents.y + 0.05f), Vector2.right * (_col.bounds.extents.x * 2), _color);
-        //Debug.Log(_groundCheck.collider);
+        
 
     }
 
     private void turnCheck(){
-
-        if (isFacingRight && horizontal_input < 0){
-
-            isFacingRight = false;
-            GetComponentInChildren<SpriteRenderer>().flipX = true;
-
-        }else if (!isFacingRight && horizontal_input > 0){
-            
-            isFacingRight = true;
-            GetComponentInChildren<SpriteRenderer>().flipX = false;
+        float scaleX = transform.localScale.x;
+        if (scaleX < 0 && horizontal_input > 0 || scaleX > 0 && horizontal_input < 0)
+        {
+            isFacingRight = !isFacingRight; 
+            scaleX *= -1;
+            transform.localScale = new Vector3(scaleX, 1, 1);
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    private float bounce = 30f;
+    [SerializeField] private float bounce = 30f;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -12,7 +12,6 @@ public class JumpPad : MonoBehaviour
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 
-            // Only activate bounce if the jump button is NOT currently held
             if (player != null && !Input.GetButton("Jump"))
             {
                 player.isBouncingFromJumpPad = true;

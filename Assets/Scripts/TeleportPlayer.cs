@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TeleportPlayer : MonoBehaviour
 {
-    private GameObject currentTeleporter;
+    [SerializeField] private GameObject currentTeleporter;
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.E))
