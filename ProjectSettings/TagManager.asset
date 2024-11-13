@@ -11,6 +11,8 @@ TagManager:
   - itemSlot
   - GreenKey
   - RedKey
+  - Ladder
+  - BlueKey
   layers:
   - Default
   - TransparentFX

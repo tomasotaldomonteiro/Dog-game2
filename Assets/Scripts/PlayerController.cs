@@ -18,11 +18,10 @@ public class PlayerController : MonoBehaviour{
     private RaycastHit2D _groundCheck;
     private MovingPlatform currentPlatform; 
     private Animator animator;
-
+    public bool climbing;
+    
     public ProjectileBehavior projectilePrefab;
     public Transform LaunchOffset;
-    public Text WinText;
-    
     
     private float horizontal_input;
 
@@ -86,7 +85,8 @@ public class PlayerController : MonoBehaviour{
             lastProjectileTime = Time.time;
         }
 
-        if (!atHighSpeeds)
+       
+        if (!atHighSpeeds) // Disable main movement and jump when climbing
         {
             movement();
             jump();
