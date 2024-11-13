@@ -7,6 +7,10 @@ TagManager:
   - CheackPoint
   - MovingPlatform
   - Teleportor
+  - Door
+  - itemSlot
+  - GreenKey
+  - RedKey
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Bomb
   - DynamicObject
   - Rat
-  - 
+  - Door
   - 
   - 
   - 
