@@ -13,6 +13,8 @@ TagManager:
   - RedKey
   - Ladder
   - BlueKey
+  - CollectibleSlot
+  - Collectible
   layers:
   - Default
   - TransparentFX
