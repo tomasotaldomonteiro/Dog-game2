@@ -26,7 +26,7 @@ public class BlueDoor : Door
 
     private bool HasBlueKey() {
         for (int i = 0; i < itemSlot.Length; ++i) {
-            if (itemSlot[i].transform.childCount > 0 && itemSlot[i].transform.GetChild(0).CompareTag("RedKey")) {
+            if (itemSlot[i].transform.childCount > 0 && itemSlot[i].transform.GetChild(0).CompareTag("BlueKey")) {
                 return true;
             }
         }
@@ -35,16 +35,18 @@ public class BlueDoor : Door
 
     private void RemoveBlueKey() {
         for (int i = 0; i < itemSlot.Length; ++i) {
-            if (itemSlot[i].transform.childCount > 0 && itemSlot[i].transform.GetChild(0).CompareTag("RedKey")) {
-                itemSlot[i].transform.GetComponent<SlotDelete>().DropItem();
-                break; // Stop after finding and dropping the green key
+            if (itemSlot[i].transform.childCount > 0 && itemSlot[i].transform.GetChild(0).CompareTag("BlueKey")) {
+                itemSlot[i].transform.GetComponent<AfterOpeningDoor>().UseItem();
+                break; 
+                // Stop after finding and deleting the green key
             }
         }
     }
 
     private void OpenDoor() {
-        transform.localScale = Vector3.zero; // Or any other logic to "open" the door
-        Debug.Log("Door opened using the Red key!");
+        // Or any other logic to "open" the door
+        transform.localScale = Vector3.zero; 
+        Debug.Log("Door opened using the Blue Key!");
     }
 
     void Update() {
@@ -57,7 +59,7 @@ public class BlueDoor : Door
     }
 
     public override void Interact(GameObject instigator) {
-        Debug.Log("Interacting with the Red door.");
+        Debug.Log("Interacting with the Blue Door.");
         base.Interact(instigator);
     }
 }

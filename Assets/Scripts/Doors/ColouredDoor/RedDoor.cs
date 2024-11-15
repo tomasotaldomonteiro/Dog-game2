@@ -36,14 +36,16 @@ public class RedDoor : Door
     private void RemoveRedKey() {
         for (int i = 0; i < itemSlot.Length; ++i) {
             if (itemSlot[i].transform.childCount > 0 && itemSlot[i].transform.GetChild(0).CompareTag("RedKey")) {
-                itemSlot[i].transform.GetComponent<SlotDelete>().DropItem();
-                break; // Stop after finding and dropping the green key
+                itemSlot[i].transform.GetComponent<AfterOpeningDoor>().UseItem();
+                break; 
+                // Stop after finding and deleting the green key
             }
         }
     }
 
     private void OpenDoor() {
-        transform.localScale = Vector3.zero; // Or any other logic to "open" the door
+        // Or any other logic to "open" the door
+        transform.localScale = Vector3.zero; 
         Debug.Log("Door opened using the Red key!");
     }
 
