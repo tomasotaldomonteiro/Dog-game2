@@ -7,6 +7,7 @@ public class PickupCollectible : MonoBehaviour
     private InventoryCollectible cinventory;
     public GameObject citem;
     private bool cisInRange; // Flag to check if player is in range of the item
+    public static bool Endingtwo = false;
 
     private void Start() {
         
@@ -58,8 +59,24 @@ public class PickupCollectible : MonoBehaviour
                 
                 // Destroy the picked-up item
                 Destroy(gameObject); 
+                
+                Finish();
                 break;
             }
         }
+    }
+
+    public void Finish()
+    {
+        Endingtwo = true; // Assume ending two is true by default
+        for (int i = 0; i < cinventory.collectibleSlots.Length; i++)
+        {
+            if (!cinventory.collectibleIsFull[i])
+            {
+                Endingtwo = false; // If any slot is not full, set Endingtwo to false
+                break;
+            }
+        }
+        Debug.Log("Endingtwo is now: " + Endingtwo);
     }
 }

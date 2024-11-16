@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/map.unity
     guid: 4d781da0147e4464e9ae8b52d7153a3c
   - enabled: 1
+    path: Assets/Scenes/EndingOne.unity
+    guid: 0decb423b0ab6f64e96bbfbfca9ecb5f
+  - enabled: 1
+    path: Assets/Scenes/EndingTwo.unity
+    guid: 425af8b52312eb741ab5ab913c65b2c9
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

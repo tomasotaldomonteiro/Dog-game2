@@ -11,7 +11,7 @@ public class TeleportPlayer : MonoBehaviour
         {
             if (currentTeleporter != null)
             {
-                transform.position = currentTeleporter.GetComponent<Teleport>().GetDestination().position;
+                transform.position = currentTeleporter.GetComponent<Teleport>().GetDestination();
             }
         }
     }

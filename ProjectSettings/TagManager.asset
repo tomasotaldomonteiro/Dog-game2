@@ -15,6 +15,7 @@ TagManager:
   - BlueKey
   - CollectibleSlot
   - Collectible
+  - Win
   layers:
   - Default
   - TransparentFX

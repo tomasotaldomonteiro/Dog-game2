@@ -29,14 +29,14 @@ public class MonsterPatrolling : AStateBehaviour {
     {
         currentTimer = maxTimer;
         timerReachedZero = false;
-        Debug.Log("Patrol state started");
+        //Debug.Log("Patrol state started");
         spriteRenderer.color = Color.red; // Change color to indicate patrol state
     }
 
     public override void OnStateUpdate()
     {
-        Debug.Log("Patrol state update");
-        Debug.Log(fromAtoB);
+        //Debug.Log("Patrol state update");
+        //Debug.Log("patrol fromAtoB is " + fromAtoB);
         
         if (currentTimer > 0)
         {
