@@ -5,10 +5,13 @@ using UnityEngine;
 public class MonsterIdle : AStateBehaviour
 {
     [SerializeField] private float maxTimer = 5.0f; // Start timer at 5 seconds
+    
+    private SpriteRenderer spriteRenderer;
+    private LineOfSight monsterSawPlayer = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
-  
-    private LineOfSight monsterSawPlayer = null;
+    
+    
 
     public override bool InitializeState()
     {
@@ -20,6 +23,7 @@ public class MonsterIdle : AStateBehaviour
     {
         currentTimer = maxTimer;
         timerReachedZero = false;
+        spriteRenderer.color = Color.green; 
     }
 
     public override void OnStateUpdate()

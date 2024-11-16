@@ -8,12 +8,10 @@ public class MonsterPatrolling : AStateBehaviour {
     [SerializeField] private GameObject pointB;
     [SerializeField] private bool fromAtoB = true;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float maxTimer = 5.0f; // Start timer at 5 seconds
     
     private SpriteRenderer spriteRenderer;
-    
     private LineOfSight monsterSawPlayer = null;
-    
-    [SerializeField] private float maxTimer = 5.0f; // Start timer at 5 seconds
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
     
@@ -30,7 +28,7 @@ public class MonsterPatrolling : AStateBehaviour {
         currentTimer = maxTimer;
         timerReachedZero = false;
         //Debug.Log("Patrol state started");
-        spriteRenderer.color = Color.red; // Change color to indicate patrol state
+        spriteRenderer.color = Color.blue;
     }
 
     public override void OnStateUpdate()

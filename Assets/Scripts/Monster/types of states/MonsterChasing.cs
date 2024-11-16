@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class MonsterChasing : AStateBehaviour
 {
-    [SerializeField] private float maxTimer = 5.0f; // Start timer at 5 seconds
-    private float currentTimer;
-    public bool timerReachedZero { get; private set; }
     
     [SerializeField] private Transform playerTransform = null;
     [SerializeField] private float moveSpeed = 3.0f;
-
+    [SerializeField] private float maxTimer = 5.0f; // Start timer at 5 seconds
+    
+    private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer = null;
+    private float currentTimer;
+    public bool timerReachedZero { get; private set; }
+
     
     public override bool InitializeState()
     {
@@ -28,6 +30,7 @@ public class MonsterChasing : AStateBehaviour
     {
         currentTimer = maxTimer;
         timerReachedZero = false;
+        spriteRenderer.color = Color.red;
     }
 
     public override void OnStateUpdate()
