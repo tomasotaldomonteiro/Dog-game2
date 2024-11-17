@@ -10,9 +10,8 @@ public class LeftRightElevators : MonoBehaviour
     public Transform rightpos; // The right position
     public SpriteRenderer elevator;
     public float speed;
-    private bool isMovingLeft; // Tracks the direction of movement
+    private bool isMovingLeft; 
 
-    // Start is called before the first frame update
     void Start()
     {
         // Set the initial position to the right position
@@ -22,8 +21,7 @@ public class LeftRightElevators : MonoBehaviour
         isMovingLeft = true;
 
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         StartElevator();
@@ -52,10 +50,9 @@ public class LeftRightElevators : MonoBehaviour
 
     void DisplayColor()
     {
-        // Change the color based on the elevator's position
         if (transform.position.x <= leftpos.position.x || transform.position.x >= rightpos.position.x)
         {
-            elevator.color = Color.green; // Resting at either end
+            elevator.color = Color.green; // Resting
         }
         else
         {
