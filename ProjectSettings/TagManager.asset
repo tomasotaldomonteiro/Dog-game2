@@ -16,6 +16,7 @@ TagManager:
   - CollectibleSlot
   - Collectible
   - Win
+  - Elevator
   layers:
   - Default
   - TransparentFX

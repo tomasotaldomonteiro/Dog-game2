@@ -282,17 +282,17 @@ public class PlayerController : MonoBehaviour{
     
     private void OnCollisionEnter2D(Collision2D collision) {
         
-        if (collision.gameObject.CompareTag("MovingPlatform")) {
+        if (collision.gameObject.CompareTag("Elevator")) {
             
-            currentPlatform = collision.gameObject.GetComponent<MovingPlatform>();
+            transform.parent = collision.gameObject.transform;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
         
-        if (collision.gameObject.CompareTag("MovingPlatform")){
+        if (collision.gameObject.CompareTag("Elevator")){
             
-            currentPlatform = null;
+            transform.parent = null;
         }
     }
 
