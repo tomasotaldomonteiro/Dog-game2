@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour{
     private float jumpBufferTimer;
     [SerializeField] private float coyoteTime = 0.1f;
     private float coyoteTimeTimer;
-    [SerializeField] private float maxJumpHeight = 1f; // Maximum height for jumping
-    private float initialJumpY; // Store the initial Y position when the jump starts
+    [SerializeField] private float maxJumpHeight = 1f; 
+    private float initialJumpY; 
 
 
     [Header("Physics")]
@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour{
     [SerializeField] private float gravity = 20f;
 
     [Header("Gravity Control")]
-    [SerializeField] private float gravityIncreaseRate = 5f; // Rate at which gravity increases
-    [SerializeField] private float maxGravityScale = 100f;    // Maximum gravity scale
+    [SerializeField] private float gravityIncreaseRate = 5f; 
+    [SerializeField] private float maxGravityScale = 100f;    
     private float currentGravityScale; 
     
     [Header("Details")]
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour{
 
     private float atHighSpeedTimer;
 
-    // Start is called before the first frame update
+   
     private void Start(){
         
         _rb = GetComponent<Rigidbody2D>();
@@ -79,14 +79,14 @@ public class PlayerController : MonoBehaviour{
     
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && Time.time >= lastProjectileTime + projectileCooldown)
+        if(Input.GetKeyDown(KeyCode.Mouse1) && Time.time >= lastProjectileTime + projectileCooldown)
         {
             Instantiate(projectilePrefab, LaunchOffset.position, transform.rotation);
             lastProjectileTime = Time.time;
         }
 
        
-        if (!atHighSpeeds) // Disable main movement and jump when climbing
+        if (!atHighSpeeds) 
         {
             movement();
             jump();
@@ -111,41 +111,33 @@ public class PlayerController : MonoBehaviour{
         }
         else
         {
-            // Reset the gravity scale when grounded
-            currentGravityScale = gravity; // Or reset to your original gravity value
+            currentGravityScale = gravity; 
         }
     }
     private void movement() {
 
         horizontal_input = Input.GetAxisRaw("Horizontal");
         
-         //if the player is pressing left or right (horizontal_input != 0) the velocity increases either 1/-1
         if (horizontal_input != 0 && Mathf.Abs(_rb.velocity.x) < topSpeed) {
         
             _rb.velocity += new Vector2(horizontal_input * acceleration, 0) * Time.deltaTime;
             animator.SetBool("Move", true); 
             
-         //if the player is trying to move in right direction while already exceeding the topSpeed. if true then caps.
         }else if (horizontal_input > 0 && _rb.velocity.x > topSpeed){
         
             _rb.velocity = new Vector2(topSpeed, _rb.velocity.y);
             animator.SetBool("Move", true);
             
-         //if the player is trying to move in left direction while already exceeding the topSpeed. if true then caps.
         }else if (horizontal_input < 0 && _rb.velocity.x < -topSpeed) {
             
             _rb.velocity = new Vector2(-topSpeed, _rb.velocity.y);
             animator.SetBool("Move", true); 
             
-         // Set move to false when idle and zeroes velocity immediately to prevent sliding
         }else if (horizontal_input == 0) {
             
             _rb.velocity = new Vector2(0, _rb.velocity.y); 
-            //animator.SetBool("Move", false);
         }
         
-        
-         //slowdown code if no right input is made but still moving
         if (horizontal_input <= 0 && _rb.velocity.x > 0.15){
             
             _rb.velocity += new Vector2(-decceleration, 0) * Time.deltaTime;
@@ -158,8 +150,6 @@ public class PlayerController : MonoBehaviour{
             animator.SetBool("Move", true);
         }
         
-        
-         //slowdown code if no input is made but still moving
         if (horizontal_input == 0 && _rb.velocity.x <= 0.15 && _rb.velocity.x >= -0.15){
             
             _rb.velocity = new Vector2(0, _rb.velocity.y);
