@@ -75,7 +75,7 @@ public class MonsterPatrolling : AStateBehaviour {
 
     public override int StateTransitionCondition()
     {
-        if (GetComponent<MonsterPatrolling>().timerReachedZero)
+        if (timerReachedZero)
         {
             return (int)EShowcaseMonsterStates.Idle;
         }

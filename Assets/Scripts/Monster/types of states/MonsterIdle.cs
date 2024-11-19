@@ -16,7 +16,9 @@ public class MonsterIdle : AStateBehaviour
     public override bool InitializeState()
     {
         monsterSawPlayer = GetComponent<LineOfSight>();
-        return true;
+        spriteRenderer = GetComponent<SpriteRenderer>();    
+        
+        return monsterSawPlayer != null && spriteRenderer != null;
     }
 
     public override void OnStateStart()
@@ -44,7 +46,7 @@ public class MonsterIdle : AStateBehaviour
     }
     public override int StateTransitionCondition()
     {
-        if (GetComponent<MonsterIdle>().timerReachedZero)
+        if (timerReachedZero)
         {
             return (int)EShowcaseMonsterStates.Patrolling;
         }

@@ -12,14 +12,19 @@ public class LineOfSight : MonoBehaviour
     
     public void Update()
     {
+        //hasSeenPlayerThisFrame = Vector2.Distance(transform.position, playerTransform.position) < chaseDistance;
+        
         // Check if the player is within chase distance
         if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
         {
             hasSeenPlayerThisFrame = true;
             
+            return;
+            
         }
         hasSeenPlayerThisFrame = false;
-    }
+        
+     }
 
     private void OnDrawGizmosSelected()
     {

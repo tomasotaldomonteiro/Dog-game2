@@ -68,7 +68,7 @@ public class MonsterChasing : AStateBehaviour
 
     public override int StateTransitionCondition()
     {
-        if (GetComponent<MonsterChasing>().timerReachedZero)
+        if (timerReachedZero)
         {
             return (int)EShowcaseMonsterStates.Patrolling;
         }
