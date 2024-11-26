@@ -14,21 +14,29 @@ public class MonsterPatrolling : AStateBehaviour {
     private LineOfSight monsterSawPlayer = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
-    
+    private Animator animator;
+    private Vector2  previousPosition;
 
     public override bool InitializeState()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         monsterSawPlayer = GetComponent<LineOfSight>();
+        animator = GetComponent<Animator>();
+        
         return true;
     }
 
     public override void OnStateStart()
     {
+        animator.SetBool("Idle", false); 
+        animator.SetBool("Patrolling", true); 
+        animator.SetBool("Chasing", false); 
+        
         currentTimer = maxTimer;
         timerReachedZero = false;
-        //Debug.Log("Patrol state started");
         spriteRenderer.color = Color.blue;
+        
+        previousPosition = transform.position; // Initialize previous position
     }
 
     public override void OnStateUpdate()
@@ -46,13 +54,26 @@ public class MonsterPatrolling : AStateBehaviour {
             }
         }
         
+        Vector2 currentPosition = transform.position; // Get the current position
+
+        // Check direction based on movement
+        if (currentPosition.x > previousPosition.x)
+        {
+            Debug.Log("Moving right");
+            transform.localScale = new Vector3(1, 1, 1); // Face right
+        }
+        else if (currentPosition.x < previousPosition.x)
+        {
+            Debug.Log("Moving left");
+            transform.localScale = new Vector3(-1, 1, 1); // Face left
+        }
+
+        previousPosition = currentPosition; // Update previous position
         if (fromAtoB)
         {
             transform.position = Vector2.MoveTowards(transform.position, pointB.transform.position, moveSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, pointB.transform.position) < 0.1f)
             {
-                // Flip the sprite to face left
-                transform.localScale = new Vector3(-1, 1, 1);
                 fromAtoB = false; // Switch direction to move towards point A
             }
         }
@@ -61,8 +82,6 @@ public class MonsterPatrolling : AStateBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, pointA.transform.position, moveSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, pointA.transform.position) < 0.1f)
             {
-                // Flip the sprite to face right
-                transform.localScale = new Vector3(1, 1, 1);
                 fromAtoB = true; // Switch direction to move towards point B
             }
         }

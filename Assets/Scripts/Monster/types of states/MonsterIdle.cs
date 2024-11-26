@@ -10,13 +10,14 @@ public class MonsterIdle : AStateBehaviour
     private LineOfSight monsterSawPlayer = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
-    
+    private Animator animator;
     
 
     public override bool InitializeState()
     {
         monsterSawPlayer = GetComponent<LineOfSight>();
         spriteRenderer = GetComponent<SpriteRenderer>();    
+        animator = GetComponent<Animator>();
         
         return monsterSawPlayer != null && spriteRenderer != null;
     }
@@ -30,6 +31,10 @@ public class MonsterIdle : AStateBehaviour
 
     public override void OnStateUpdate()
     {
+        animator.SetBool("Idle", true); 
+        animator.SetBool("Patrolling", false); 
+        animator.SetBool("Chasing", false); 
+        
         if (currentTimer > 0)
         {
             currentTimer -= Time.deltaTime;
