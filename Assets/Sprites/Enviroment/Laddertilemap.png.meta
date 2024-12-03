@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1aeffb10eed65e545bdf59dbfa6717dd
+guid: f8df364264eed7c4386b5c3162ea2bc0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,64 +97,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ladder 1_0
+      name: Laddertilemap_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 560
-        width: 80
-        height: 80
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41e229572a638a14b91c748f1252d4ee
-      internalID: 401487312
+      spriteID: 0db59313937e8514b905d21cf87b9679
+      internalID: 891168697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ladder 1_1
+      name: Laddertilemap_1
       rect:
         serializedVersion: 2
-        x: 80
-        y: 560
-        width: 80
-        height: 80
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9808a238677ea784f92fb3ef3560be3f
-      internalID: -419091061
+      spriteID: dc150a705277bcb4ca40a179a1ce0efa
+      internalID: -262312662
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ladder 1_2
+      name: Laddertilemap_2
       rect:
         serializedVersion: 2
-        x: 160
-        y: 560
-        width: 80
-        height: 80
+        x: 0
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5644f86a2bea8294db60671d8d8b9e65
-      internalID: 1290142362
+      spriteID: 45fe1e207a523d74d80e8245c3df6bff
+      internalID: 33663806
       vertices: []
       indices: 
       edges: []
@@ -170,9 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ladder 1_0: 401487312
-      Ladder 1_1: -419091061
-      Ladder 1_2: 1290142362
+      Laddertilemap_0: 891168697
+      Laddertilemap_1: -262312662
+      Laddertilemap_2: 33663806
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
