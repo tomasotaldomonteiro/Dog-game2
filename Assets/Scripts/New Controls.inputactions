@@ -1,0 +1,65 @@
+{
+    "name": "New Controls",
+    "maps": [
+        {
+            "name": "Generic",
+            "id": "f0bd81b3-8f6b-40b0-b20d-a52843aec294",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "016a84b8-7d46-4575-9928-db772702a211",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "1d224be8-94fd-4d20-bb5a-a90440849fce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e143ea0e-c3ff-437d-8926-186046bbbb19",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e19c287-4c95-46ee-b3b2-787df709f7d3",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6fc5e627-2526-41f8-8ff6-f031b6e0e94c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -7,5 +7,6 @@ public enum EShowcaseMonsterStates
     Invalid = -1,
     Idle,
     Patrolling,
-    Chasing
+    Chasing,
+    Lost
 }
