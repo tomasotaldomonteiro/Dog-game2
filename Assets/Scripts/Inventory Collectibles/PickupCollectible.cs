@@ -6,75 +6,63 @@ public class PickupCollectible : MonoBehaviour
 {
     private InventoryCollectible cinventory;
     public GameObject citem;
-    public int collectibleID; // Unique ID for the collectible
     private bool cisInRange; // Flag to check if player is in range of the item
     public static bool Endingtwo = false;
 
-    private void Start()
-    {
+    private void Start() {
+        
         cinventory = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryCollectible>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+    private void OnTriggerEnter2D(Collider2D other) {
+        
         // Player is in range of the item
-        if (other.CompareTag("Player"))
-        {
-            cisInRange = true;
+        if (other.CompareTag("Player")) {
+            cisInRange = true; 
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
+    private void OnTriggerExit2D(Collider2D other) {
+        
         // Player has left the range of the item
-        if (other.CompareTag("Player"))
-        {
-            cisInRange = false;
+        if (other.CompareTag("Player")) {
+            cisInRange = false; 
         }
     }
-
-    private void Update()
-    {
+    
+    private void Update() {
+        
         // Check if player presses "E" while in range
-        if (cisInRange && Input.GetKeyDown(KeyCode.E))
-        {
+        if (cisInRange && Input.GetKeyDown(KeyCode.E)) {
             CPickUpItem();
         }
     }
-
-    private void CPickUpItem()
-    {
-        if (collectibleID >= 0 && collectibleID < cinventory.collectibleSlots.Length)
-        {
-            int slotIndex = collectibleID;
-
-            // Check if the corresponding slot is empty
-            if (!cinventory.collectibleIsFull[slotIndex])
-            {
-                // Mark slot as full
-                cinventory.collectibleIsFull[slotIndex] = true;
-
-                // Instantiate item in the correct slot
-                GameObject newItem = Instantiate(citem, cinventory.collectibleSlots[slotIndex].transform, false);
-
-                // Center the item in the slot
+    
+    private void CPickUpItem() {
+        
+        for (int i = 0; i < cinventory.collectibleSlots.Length; i++) { 
+            
+            if (cinventory.collectibleIsFull[i] == false) {
+                
+                //pickup then is full
+                cinventory.collectibleIsFull[i] = true;
+                    
+                // Instantiate item as a child of the i slot with its world position rather than matching exactly with the slot’s initial position
+                GameObject newItem = Instantiate(citem, cinventory.collectibleSlots[i].transform, false);
+                
+                // Ensure the item centers in the UI elements transform component slot
                 RectTransform rectTransform = newItem.GetComponent<RectTransform>();
+                    
+                //anchoredPosition is a property of the RectTransform that represents the position of the UI element relative to its anchor points in its parent.
+                //By setting anchoredPosition to (0, 0), you center the newItemButton within the slot, aligning it perfectly in the middle
                 rectTransform.anchoredPosition = Vector2.zero;
-
-                // Destroy the picked-up item in the world
-                Destroy(gameObject);
-
-                // Check for the ending condition
+                
+                // Destroy the picked-up item
+                Destroy(gameObject); 
+                
                 Finish();
+                break;
             }
-            else
-            {
-                Debug.Log("Slot " + slotIndex + " is already full.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Invalid collectible ID: " + collectibleID);
         }
     }
 

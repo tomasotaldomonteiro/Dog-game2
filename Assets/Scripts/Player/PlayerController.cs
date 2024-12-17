@@ -25,44 +25,39 @@ public class PlayerController : MonoBehaviour{
     private float horizontal_input;
 
     [Header("Run")]
-    [SerializeField] private float topSpeed = 14f;
-    private float decceleration = 12f;
-    private float acceleration = 12f;
+    [SerializeField] private float topSpeed = 8f;
+    [SerializeField] private float decceleration = 8f;
+    [SerializeField] private float acceleration = 8f;
 
     [Header("Jump")]
-    [SerializeField] private float jumpPower = 10f;
-    [SerializeField] private float holdJumpMultiplier = 1.5f; // Multiplier when holding jump
-    [SerializeField] private float maxJumpHoldTime = 0.2f;
-    [SerializeField] private float maxJumpHeight = 3f;   // Max duration for holding jump to increase height
-    private float jumpHoldTimer;
-    private float jumpStartY;
-    
-    private float jumpBufferTime = 0.1f;
+    [SerializeField] private float jumpPower = 40f;
+    [SerializeField] private float jumpBufferTime = 0.1f;
     private float jumpBufferTimer;
-    private float coyoteTime = 0.1f;
+    [SerializeField] private float coyoteTime = 0.1f;
     private float coyoteTimeTimer;
+    [SerializeField] private float maxJumpHeight = 1f; // Maximum height for jumping
+    private float initialJumpY; // Store the initial Y position when the jump starts
+
 
     [Header("Physics")]
-    private float fallingTopSpeed = 20f;
-    private float gravity = 20f;
+    [SerializeField] private float fallingTopSpeed = 20f;
+    [SerializeField] private float gravity = 20f;
 
     [Header("Gravity Control")]
-    private float gravityIncreaseRate = 5f;
-    private float maxGravityScale = 100f;
-    private float currentGravityScale;
-
+    [SerializeField] private float gravityIncreaseRate = 5f; // Rate at which gravity increases
+    [SerializeField] private float maxGravityScale = 100f;    // Maximum gravity scale
+    private float currentGravityScale; 
+    
     [Header("Details")]
     [SerializeField] private LayerMask groundMask;
-    public bool isFacingRight;
-    private bool isGrounded;
-    public bool atHighSpeeds;
-    private float atHighSpeedTime = 1f;
+    [SerializeField] public bool isFacingRight;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] public bool atHighSpeeds;
+    [SerializeField] private float atHighSpeedTime = 1f;
 
-    private GameObject throwDirection;
+    [SerializeField] private GameObject throwDirection;
+
     private float atHighSpeedTimer;
-
-    private float projectileCooldown = 3f;
-    private float lastProjectileTime = 0f;
 
     private void Start(){
         
@@ -74,6 +69,11 @@ public class PlayerController : MonoBehaviour{
         atHighSpeeds = false;
         atHighSpeedTimer = atHighSpeedTime;
     }
+
+    
+
+     [SerializeField] private float projectileCooldown = 3f; 
+     [SerializeField] private float lastProjectileTime = 0f; 
     
     private void Update()
     {
@@ -167,51 +167,39 @@ public class PlayerController : MonoBehaviour{
 
     private void jump(){
         if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return; 
-        if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return;
 
-        // JUMP BUFFERING
-        if (Input.GetButtonDown("Jump"))
-        {
+        //JUMP BUFFERING
+        if (Input.GetButtonDown("Jump")){
             jumpBufferTimer = jumpBufferTime;
-            jumpStartY = transform.position.y;
-            jumpHoldTimer = 0f; // Reset hold timer when jump starts
-        }
-        else
-        {
+            initialJumpY = transform.position.y; 
+        }else{
             jumpBufferTimer -= Time.deltaTime;
         }
-
-        // WHEN WE PRESS THE JUMP BUTTON
-        if (jumpBufferTimer > 0 && coyoteTimeTimer > 0)
-        {
+        
+         //WHEN WE PRESS THE JUMP BUTTON
+        if (jumpBufferTimer > 0 && coyoteTimeTimer > 0){
             _rb.velocity = new Vector2(_rb.velocity.x, jumpPower);
             jumpBufferTimer = 0;
         }
-
-        // HOLD JUMP TO INCREASE HEIGHT
-        if (Input.GetButton("Jump") && !isGrounded)
-        {
-            if (jumpHoldTimer < maxJumpHoldTime && (transform.position.y - jumpStartY) < maxJumpHeight)
-            {
-                _rb.velocity += new Vector2(0, holdJumpMultiplier * Time.deltaTime);
-                jumpHoldTimer += Time.deltaTime;
+        
+         //STOP BIG "FLOATING" WHEN AFTER REACHING MAX HEIGHT
+        if (!isGrounded && Input.GetButton("Jump")) {
+            if (transform.position.y >= initialJumpY + maxJumpHeight) {
+                _rb.velocity = new Vector2(_rb.velocity.x, jumpPower * 3f);
             }
         }
-
-        // COYOTE TIMER
-        if (isGrounded)
-        {
+        
+         //COYOTE TIMER
+        if (isGrounded){
             coyoteTimeTimer = coyoteTime;
-        }
-        else
-        {
+        }else{
             coyoteTimeTimer -= Time.deltaTime;
         }
 
-        // WHEN WE RELEASE THE JUMP BUTTON
-        if (Input.GetButtonUp("Jump") && _rb.velocity.y > 0)
-        {
-            _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.5f); // Cut jump height
+         //WHEN WE RELEASE THE JUMP BUTTON
+        if (Input.GetButtonUp("Jump") && _rb.velocity.y >= 0){
+            _rb.gravityScale = gravity * 1.6f;
+            coyoteTimeTimer = 0f;
         }
         
          //RESET GRAVITY
@@ -244,7 +232,6 @@ public class PlayerController : MonoBehaviour{
         _groundCheck = Physics2D.BoxCast(_col.bounds.center, _col.bounds.size, 0f, Vector2.down, 0.1f, groundMask);
         isGrounded = _groundCheck.collider != null ? true : false; 
 
-        Debug.Log("Is Grounded: " + isGrounded); 
         
         if (_groundCheck.collider != null){
             

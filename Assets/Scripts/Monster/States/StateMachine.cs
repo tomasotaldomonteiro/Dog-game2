@@ -61,6 +61,38 @@ public class StateMachine : MonoBehaviour
             currentState = stateBehaviours[newState];
             currentState.OnStateStart();
         }
+        
+        // if (Input.GetKeyDown(KeyCode.I))
+        // {
+        //     Debug.Log(currentState);
+        // }
+        // if (Input.GetKeyDown(KeyCode.N))
+        // {
+        //     currentState.OnStateEnd();
+        //     currentState = stateBehaviours[0];
+        //     currentState.OnStateStart();
+        // }
+        // if (Input.GetKeyDown(KeyCode.M))
+        // {
+        //     currentState.OnStateEnd();
+        //     currentState = stateBehaviours[1];
+        //     currentState.OnStateStart();
+        //     currentState.OnStateUpdate();
+        // }
+        // if (Input.GetKeyDown(KeyCode.B))
+        // {
+        //     currentState.OnStateEnd();
+        //     currentState = stateBehaviours[2];
+        //     currentState.OnStateStart();
+        // }
+        //
+        //
+        
+        
+        
+       
+    
+        
     }
     
     public bool IsCurrentState(AStateBehaviour stateBehaviour)

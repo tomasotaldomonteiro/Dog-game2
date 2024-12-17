@@ -104,7 +104,7 @@ public class MonsterChasing : AStateBehaviour
         
         if (!monsterSawPlayer.HasSeenPlayerThisFrame())
         {
-            return (int)EShowcaseMonsterStates.Lost;
+            return (int)EShowcaseMonsterStates.Patrolling;
         }
         return (int)EShowcaseMonsterStates.Invalid;
     }
