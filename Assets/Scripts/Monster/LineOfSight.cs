@@ -5,36 +5,56 @@ using UnityEngine;
 public class LineOfSight : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform; // Reference to the player's transform
-    [SerializeField] private float chaseDistance = 5.0f; // Distance at which the monster starts chasing the player
+    [SerializeField] private Vector2 sightBoxSize = new Vector2(7f, 1.5f); // Width and height of the sight rectangle
+    [SerializeField] private float sightOffsetBehind = 2f; // How far behind the character the sight extends
+    [SerializeField] private LayerMask playerLayer; // Layer for the player
 
-    
     private bool hasSeenPlayerThisFrame = false;
+    private Vector2 lastSeenPosition;
+    private Vector2 boxCenter; // Store the calculated box center for dynamic Gizmos
+
+    private float facingDirection = 1f;
     
-    public void Update2()
+    private void Update()
     {
-        //hasSeenPlayerThisFrame = Vector2.Distance(transform.position, playerTransform.position) < chaseDistance;
+        if (transform.localScale.x > 0)
+            facingDirection = 1f; // Facing right
+        else
+            facingDirection = -1f; // Facing left
         
-        // Check if the player is within chase distance
-        if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
+        // Define the center of the box based on the character's facing direction
+        boxCenter = (Vector2)transform.position + new Vector2((sightBoxSize.x / 2 - sightOffsetBehind)* facingDirection, 0);
+
+        // Check if the player is within the box
+        Collider2D hit = Physics2D.OverlapBox(boxCenter, sightBoxSize, 0f, playerLayer);
+        if (hit != null && hit.transform == playerTransform)
         {
             hasSeenPlayerThisFrame = true;
-            
+            lastSeenPosition = playerTransform.position;
             return;
-            
         }
+
         hasSeenPlayerThisFrame = false;
-        
-     }
+    }
 
     private void OnDrawGizmosSelected()
     {
-        // Visualize the chase distance in the editor
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, chaseDistance);
+        // Visualize the sight rectangle in the editor dynamically
+        Gizmos.color = hasSeenPlayerThisFrame ? Color.red : Color.blue; // Red if player detected, blue otherwise
+        Gizmos.DrawWireCube(boxCenter, sightBoxSize);
+
+        // Optional: Show the last seen position as a small sphere
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(lastSeenPosition, 0.2f);
     }
-    
+
     public bool HasSeenPlayerThisFrame()
     {
         return hasSeenPlayerThisFrame;
+    }
+
+    public Vector2 GetLastSeenPosition()
+    {
+        return lastSeenPosition;
     }
 }
