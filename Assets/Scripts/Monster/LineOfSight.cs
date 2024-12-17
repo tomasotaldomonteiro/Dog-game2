@@ -10,7 +10,7 @@ public class LineOfSight : MonoBehaviour
     
     private bool hasSeenPlayerThisFrame = false;
     
-    public void Update()
+    public void Update2()
     {
         //hasSeenPlayerThisFrame = Vector2.Distance(transform.position, playerTransform.position) < chaseDistance;
         
