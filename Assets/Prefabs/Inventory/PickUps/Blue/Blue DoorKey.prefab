@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4370104250175184538
+--- !u!1 &7229698059290473192
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3683448424098310633}
-  - component: {fileID: 7186520054485962250}
-  - component: {fileID: 2909623490331537058}
-  - component: {fileID: 3854402661262964087}
-  - component: {fileID: 2692592730626382373}
-  - component: {fileID: 5213749064283401431}
+  - component: {fileID: 1591409100257943676}
+  - component: {fileID: 7911555583431152385}
+  - component: {fileID: 8291255263811816357}
+  - component: {fileID: 8288059933008247778}
+  - component: {fileID: 2909248351992681787}
+  - component: {fileID: 891735283415415617}
   m_Layer: 5
   m_Name: Blue DoorKey
   m_TagString: BlueKey
@@ -21,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &3683448424098310633
+--- !u!224 &1591409100257943676
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370104250175184538}
+  m_GameObject: {fileID: 7229698059290473192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,21 +40,21 @@ RectTransform:
   m_AnchoredPosition: {x: -704.7, y: -438.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7186520054485962250
+--- !u!222 &7911555583431152385
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370104250175184538}
+  m_GameObject: {fileID: 7229698059290473192}
   m_CullTransparentMesh: 1
---- !u!114 &2909623490331537058
+--- !u!114 &8291255263811816357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370104250175184538}
+  m_GameObject: {fileID: 7229698059290473192}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 190621036, guid: 9021c5fe6af143b4d8bc254c3b4fa28b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -78,13 +78,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3854402661262964087
+--- !u!114 &8288059933008247778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370104250175184538}
+  m_GameObject: {fileID: 7229698059290473192}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -118,34 +118,34 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2909623490331537058}
+  m_TargetGraphic: {fileID: 8291255263811816357}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2692592730626382373
+--- !u!114 &2909248351992681787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370104250175184538}
+  m_GameObject: {fileID: 7229698059290473192}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84be42518caf1a545902e24cdbc1ea6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: {fileID: 1756864981076847314, guid: bfa53aaa36b2bf14ea870927281df303, type: 3}
---- !u!95 &5213749064283401431
+  items: {fileID: 6872946191711176443, guid: bfa53aaa36b2bf14ea870927281df303, type: 3}
+--- !u!95 &891735283415415617
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370104250175184538}
+  m_GameObject: {fileID: 7229698059290473192}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e10dcab163081ff46985823a16e2d9c8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 26f784a8a12bf4a468a7a80e869ce55b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

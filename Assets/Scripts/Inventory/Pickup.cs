@@ -58,6 +58,7 @@ public class Pickup : MonoBehaviour
                 
                 // Destroy the picked-up item
                 Destroy(gameObject); 
+                Destroy(transform.parent.gameObject);
                 break;
             }
         }
