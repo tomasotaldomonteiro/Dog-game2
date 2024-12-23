@@ -690,7 +690,7 @@ Transform:
   m_GameObject: {fileID: 231488125}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.730401, w: 0.6830186}
-  m_LocalPosition: {x: 17.27, y: 0.68, z: 0}
+  m_LocalPosition: {x: 29.4, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2622,6 +2622,7 @@ GameObject:
   - component: {fileID: 2081210350}
   - component: {fileID: 2081210353}
   - component: {fileID: 2081210354}
+  - component: {fileID: 2081210355}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2715,6 +2716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be4a5a264c060f48b70aa02856246c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fading: {fileID: 2081210355}
 --- !u!114 &2081210354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2759,6 +2761,20 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &2081210355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081210349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c45db8f893acd3e46aef4a25280e9191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeDuration: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
