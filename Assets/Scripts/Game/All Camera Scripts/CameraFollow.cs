@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamaraFollow : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Vector3 offset = new Vector3 (0f, 0f, -10f);
     [SerializeField] private float smoothtime = 0.06f;
