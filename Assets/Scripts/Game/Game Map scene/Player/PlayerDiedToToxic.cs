@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDied : MonoBehaviour {
+public class PlayerDiedToToxic : MonoBehaviour {
     
     [SerializeField] private RespawnScript respawn;
     [SerializeField] private PlayerDiedAnimation dogAnimations;

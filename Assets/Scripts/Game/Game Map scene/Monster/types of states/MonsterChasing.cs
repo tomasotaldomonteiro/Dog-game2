@@ -11,6 +11,7 @@ public class MonsterChasing : AStateBehaviour
     
     private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer = null;
+    private ToxicCollisionDetector monsterTouchedToxic = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
     private Animator animator;
@@ -20,10 +21,11 @@ public class MonsterChasing : AStateBehaviour
     { 
         spriteRenderer = GetComponent<SpriteRenderer>();    
         monsterSawPlayer = GetComponent<LineOfSight>();
+        monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
         animator = GetComponent<Animator>();
 
         // Check if necessary components are assigned
-        if (playerTransform == null || monsterSawPlayer == null)
+        if (playerTransform == null && monsterTouchedToxic !=null && monsterSawPlayer == null)
             return false;
 
         return true;
@@ -90,22 +92,24 @@ public class MonsterChasing : AStateBehaviour
         }
     }
 
-    public override void OnStateEnd()
-    {
+    public override void OnStateEnd() {
     }
 
-    public override int StateTransitionCondition()
-    {
-        if (timerReachedZero)
-        {
+    public override int StateTransitionCondition() {
+        
+        if (timerReachedZero) {
+            
             return (int)EShowcaseMonsterStates.Patrolling;
         }
-        
-        
-        if (!monsterSawPlayer.HasSeenPlayerThisFrame())
-        {
+        if (!monsterSawPlayer.HasSeenPlayerThisFrame()) {
+            
             return (int)EShowcaseMonsterStates.Lost;
         }
+        if (monsterTouchedToxic.HasTouchedToxicThisFrame()) {
+            
+            return (int)EShowcaseMonsterStates.Death; 
+        }
+        
         return (int)EShowcaseMonsterStates.Invalid;
     }
 }

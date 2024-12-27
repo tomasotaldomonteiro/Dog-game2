@@ -12,6 +12,7 @@ public class MonsterPatrolling : AStateBehaviour {
     
     private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer = null;
+    private ToxicCollisionDetector monsterTouchedToxic = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
     private Animator animator;
@@ -21,9 +22,10 @@ public class MonsterPatrolling : AStateBehaviour {
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         monsterSawPlayer = GetComponent<LineOfSight>();
+        monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
         animator = GetComponent<Animator>();
         
-        return true;
+        return spriteRenderer != null && monsterSawPlayer != null && monsterTouchedToxic != null && animator != null;
     }
 
     public override void OnStateStart()
@@ -41,9 +43,6 @@ public class MonsterPatrolling : AStateBehaviour {
 
     public override void OnStateUpdate()
     {
-        //Debug.Log("Patrol state update");
-        //Debug.Log("patrol fromAtoB is " + fromAtoB);
-        
         if (currentTimer > 0)
         {
             currentTimer -= Time.deltaTime;
@@ -87,22 +86,26 @@ public class MonsterPatrolling : AStateBehaviour {
         }
     }
 
-    public override void OnStateEnd()
-    {
-        // Cleanup or reset logic when the state ends, if needed
+    public override void OnStateEnd() {
+     
     }
 
-    public override int StateTransitionCondition()
-    {
-        if (timerReachedZero)
-        {
+    public override int StateTransitionCondition() {
+        
+        if (timerReachedZero) {
+            
             return (int)EShowcaseMonsterStates.Idle;
         }
 
-        if (monsterSawPlayer.HasSeenPlayerThisFrame())
-        {
+        if (monsterSawPlayer.HasSeenPlayerThisFrame()) {
+            
             return (int)EShowcaseMonsterStates.Chasing;
         }
+        if (monsterTouchedToxic.HasTouchedToxicThisFrame()) {
+            
+            return (int)EShowcaseMonsterStates.Death; 
+        }
+       
 
         return (int)EShowcaseMonsterStates.Invalid;
     }

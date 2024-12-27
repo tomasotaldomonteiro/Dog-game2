@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class MonsterLost : AStateBehaviour
 {
-    [SerializeField] private float moveSpeed = 2.0f; // Speed of movement
+    [SerializeField] private float moveSpeed = 2.0f; 
     [SerializeField] private float maxTimer = 5.0f; // Time to remain in "lost" state if no other action occurs
 
     
     private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer;
+    private ToxicCollisionDetector monsterTouchedToxic = null;
     private Animator animator;
-    private Vector2 lastSeenPosition; // Position where the player was last seen
+    private Vector2 lastSeenPosition; 
     private bool reachedLastSeenPosition;
     private float currentTimer;
 
@@ -19,20 +20,21 @@ public class MonsterLost : AStateBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();    
         monsterSawPlayer = GetComponent<LineOfSight>();
+        monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
         animator = GetComponent<Animator>();
         return true;
     }
 
     public override void OnStateStart()
     {
-        // Set the last seen position of the player
+       
         lastSeenPosition = monsterSawPlayer.GetLastSeenPosition();
 
-        // Initialize the state
+     
         animator.SetBool("Idle", false);
         animator.SetBool("Patrolling", true);
         animator.SetBool("Chasing", false);
-        //animator.SetBool("Lost", true);
+        
 
         currentTimer = maxTimer;
         reachedLastSeenPosition = false;
@@ -67,21 +69,24 @@ public class MonsterLost : AStateBehaviour
 
     public override void OnStateEnd()
     {
-        // Reset any necessary variables when the state ends
+    
     }
 
     public override int StateTransitionCondition()
     {
-        // Transition to Idle when the last seen position is reached
-        if (reachedLastSeenPosition)
-        {
+        
+        if (reachedLastSeenPosition) {
+            
             return (int)EShowcaseMonsterStates.Idle;
         }
 
-        // Transition to Chasing if the monster sees the player again
-        if (monsterSawPlayer.HasSeenPlayerThisFrame())
-        {
+        if (monsterSawPlayer.HasSeenPlayerThisFrame()) {
+            
             return (int)EShowcaseMonsterStates.Chasing;
+        }
+        if (monsterTouchedToxic.HasTouchedToxicThisFrame()) {
+            
+            return (int)EShowcaseMonsterStates.Death; 
         }
 
         // Stay in the Lost state if no other conditions are met

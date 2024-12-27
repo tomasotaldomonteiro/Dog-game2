@@ -8,5 +8,6 @@ public enum EShowcaseMonsterStates
     Idle,
     Patrolling,
     Chasing,
-    Lost
+    Lost,
+    Death
 }

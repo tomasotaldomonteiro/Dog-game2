@@ -40,7 +40,6 @@ public class SceneStartSpawning : MonoBehaviour
     private IEnumerator SpawningSequence()
     {
         
-        animator.SetTrigger("FirstSpawn");
         playerController.enabled = false; 
         
         // Stop sliding
