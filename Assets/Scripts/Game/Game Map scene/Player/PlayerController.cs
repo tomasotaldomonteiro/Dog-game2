@@ -164,6 +164,10 @@ public class PlayerController : MonoBehaviour{
             animator.SetBool("Move", false);
         }
     }
+    public bool IsMoving()
+    {
+        return Mathf.Abs(_rb.velocity.x) > 0.1f; // Check if the player is moving horizontally
+    }
 
     private void jump(){
         if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return; 

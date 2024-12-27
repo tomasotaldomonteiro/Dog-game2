@@ -10,6 +10,8 @@ public class LineOfSight : MonoBehaviour
     [SerializeField] private LayerMask playerLayer; // Layer for the player
 
     private bool hasSeenPlayerThisFrame = false;
+    private bool isTemporarilyDisabled = false; 
+    
     private Vector2 lastSeenPosition;
     private Vector2 boxCenter; // Store the calculated box center for dynamic Gizmos
 
@@ -17,6 +19,8 @@ public class LineOfSight : MonoBehaviour
     
     private void Update()
     {
+        if (isTemporarilyDisabled) return;
+        
         if (transform.localScale.x > 0)
             facingDirection = 1f; // Facing right
         else
@@ -33,8 +37,15 @@ public class LineOfSight : MonoBehaviour
             lastSeenPosition = playerTransform.position;
             return;
         }
+        
 
         hasSeenPlayerThisFrame = false;
+    }
+    
+    public void TemporarilyDisableSight(bool disable) // Add a public method
+    {
+        hasSeenPlayerThisFrame = false;
+        isTemporarilyDisabled = disable;
     }
 
     private void OnDrawGizmosSelected()
