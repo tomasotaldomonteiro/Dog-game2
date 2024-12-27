@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour{
         _groundCheck = Physics2D.BoxCast(_col.bounds.center, _col.bounds.size, 0f, Vector2.down, 0.1f, groundMask);
         isGrounded = _groundCheck.collider != null ? true : false; 
 
-        Debug.Log("Is Grounded: " + isGrounded); 
+        //Debug.Log("Is Grounded: " + isGrounded); 
         
         if (_groundCheck.collider != null){
             

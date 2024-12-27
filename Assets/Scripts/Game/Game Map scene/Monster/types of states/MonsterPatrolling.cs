@@ -59,12 +59,12 @@ public class MonsterPatrolling : AStateBehaviour {
         // Check direction based on movement
         if (currentPosition.x > previousPosition.x)
         {
-            Debug.Log("Moving right");
+            //Debug.Log("Moving right");
             transform.localScale = new Vector3(1, 1, 1); // Face right
         }
         else if (currentPosition.x < previousPosition.x)
         {
-            Debug.Log("Moving left");
+            //Debug.Log("Moving left");
             transform.localScale = new Vector3(-1, 1, 1); // Face left
         }
 

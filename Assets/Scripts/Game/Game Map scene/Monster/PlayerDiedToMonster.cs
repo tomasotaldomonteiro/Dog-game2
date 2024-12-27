@@ -33,7 +33,7 @@ public class PlayerDiedToMonster : MonoBehaviour {
         ratLineOfSight.TemporarilyDisableSight(true);
 
         // Wait for the animation coroutine to finish
-        yield return StartCoroutine(dogAnimations.PlayDeathAnimation()); 
+        yield return StartCoroutine(dogAnimations.PlayDeathAnimationOne()); 
         
         // Re-enable collisions after the animation is done
         Physics2D.IgnoreCollision(playerCollider, GetComponent<Collider2D>(), false); 
