@@ -7,28 +7,31 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+
 public class PlayerController : MonoBehaviour{
     
-    public bool isBouncingFromJumpPad = false; 
-    private float bounceDisableJumpTimer = 0f;
     private Rigidbody2D _rb;
     private Collider2D _col;
     private RaycastHit2D _groundCheck;
     private Animator animator;
     public bool climbing;
     
+    [Header("Projectile")]
     public ProjectileBehavior projectilePrefab;
     public Transform LaunchOffset;
+    private bool isCooldown = false;
+ 
     
-    private float horizontal_input;
 
     [Header("Run")]
     [SerializeField] private float topSpeed = 14f;
     private float decceleration = 12f;
     private float acceleration = 12f;
-
+    private float horizontal_input;
+    
     [Header("Jump")]
     [SerializeField] private float jumpPower = 10f;
     [SerializeField] private float holdJumpMultiplier = 1.5f; // Multiplier when holding jump
@@ -58,11 +61,10 @@ public class PlayerController : MonoBehaviour{
     public bool atHighSpeeds;
     private float atHighSpeedTime = 1f;
 
-    private GameObject throwDirection;
+    //private GameObject throwDirection;
     private float atHighSpeedTimer;
 
-    private float projectileCooldown = 3f;
-    private float lastProjectileTime = 0f;
+   
 
     private void Start(){
         
@@ -77,20 +79,15 @@ public class PlayerController : MonoBehaviour{
     
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1) && Time.time >= lastProjectileTime + projectileCooldown)
-        {
-            Instantiate(projectilePrefab, LaunchOffset.position, transform.rotation);
-            lastProjectileTime = Time.time;
-        }
-
        
+        
         if (!atHighSpeeds) // Disable main movement and jump when climbing
         {
             movement();
             jump();
         }
 
-        if (bounceDisableJumpTimer > 0) bounceDisableJumpTimer -= Time.deltaTime;
+        
 
         clampFalling();
         checkGround();
@@ -98,6 +95,18 @@ public class PlayerController : MonoBehaviour{
         highSpeeds();
         gravityControl(); 
     }
+   
+    
+    
+    public bool ThrowStone()
+    {
+        if (isCooldown) return false; // Prevent throwing during cooldown
+        
+        Instantiate(projectilePrefab, LaunchOffset.position, transform.rotation);
+
+        return true; 
+    }
+
 
     private void gravityControl()
     {
@@ -170,9 +179,7 @@ public class PlayerController : MonoBehaviour{
     }
 
     private void jump(){
-        if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return; 
-        if (isBouncingFromJumpPad || bounceDisableJumpTimer > 0) return;
-
+       
         // JUMP BUFFERING
         if (Input.GetButtonDown("Jump"))
         {
@@ -225,15 +232,6 @@ public class PlayerController : MonoBehaviour{
 
         
     }
-
-
-
-    public void DisableJumpForBounce(float duration)
-    {
-        bounceDisableJumpTimer = duration;
-    }
-    
-
     
     private void clampFalling(){
         
