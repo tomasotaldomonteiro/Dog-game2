@@ -7,6 +7,8 @@ public class Fading : MonoBehaviour{
     public Color fadeColor = Color.black;  // Color of the fade
     public float fadeDuration = 1f;       // Default fade duration
     public float scene1FadeInDuration = 3f; // Custom fade-in duration for Scene 1
+    public float winningScreenFadeOutDuration = 0.5f; // Custom fade-out duration for winning screens
+    public float winningScreenFadeInDuration = 1f; 
     public float blackScreenDuration = 2f; // Time to keep the screen fully black before fading in
 
     private Texture2D fadeTexture;
@@ -21,12 +23,27 @@ public class Fading : MonoBehaviour{
         fadeTexture.Apply();
 
         // Manually trigger fade-in for Scene 1
-        if (SceneManager.GetActiveScene().buildIndex == 1){              // Check if the current scene is Scene 1
+        if (SceneManager.GetActiveScene().buildIndex == 0) {
+            
+            fadeAlpha = 1f;  
+            currentFadeDuration = winningScreenFadeInDuration;
+            StartFadeIn();                                              // Standard fade-in for winning screen
+        } else if (SceneManager.GetActiveScene().buildIndex == 1){              // Check if the current scene is Scene 1
             
             fadeAlpha = 1f;                                             // Start with a black screen
             currentFadeDuration = scene1FadeInDuration;                 // Use the specified fade-in duration for Scene 1
             StartCoroutine(DelayedFadeIn());
             
+        } else if (SceneManager.GetActiveScene().buildIndex == 2) {
+            
+            fadeAlpha = 1f;  
+            currentFadeDuration = winningScreenFadeInDuration;
+            StartFadeIn();                                              // Standard fade-in for winning screen
+        } else if (SceneManager.GetActiveScene().buildIndex == 3) {
+            
+            fadeAlpha = 1f;  
+            currentFadeDuration = winningScreenFadeInDuration;
+            StartFadeIn();                                              // Standard fade-in for winning screen
         }else{
             
             currentFadeDuration = fadeDuration;                         // Default fade duration for other scenes

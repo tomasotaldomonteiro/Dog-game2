@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FinishToHome : MonoBehaviour
-{
-    [SerializeField] GameObject FinishMenu;   
+public class FinishToHome : MonoBehaviour {
+    
+    [SerializeField] private Fading fading;
+    [SerializeField] GameObject FinishMenu;
+    
     public void Home()
     {
-        SceneManager.LoadScene("MainMenu");
+        fading.FadeOutAndChangeScene(0); 
         
     }
 }

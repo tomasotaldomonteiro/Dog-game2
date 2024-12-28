@@ -1,21 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Finish : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private Fading fading;
+
+    private const int EndingOneSceneIndex = 2; 
+    private const int EndingTwoSceneIndex = 3; 
+    private void Start()
     {
-        if (collision.CompareTag("Player"))
+        fading = FindObjectOfType<Fading>();
+
+        if (fading == null)
         {
-            if (PickupCollectible.Endingtwo) 
+            Debug.LogError("Fading script not found in the scene. Ensure it is attached to an object.");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")) 
+        {
+            if (PickupCollectible.Endingtwo)
             {
-                SceneManager.LoadScene("EndingTwo");
+                fading.FadeOutAndChangeScene(EndingTwoSceneIndex);
             }
             else
             {
-                SceneManager.LoadScene("EndingOne");
+                fading.FadeOutAndChangeScene(EndingOneSceneIndex);
             }
         }
     }

@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenDoor : Door
-{
-    float Scale = 1.0f;
-    float Timer = 0f;
+public class GreenDoor : Door {
 
     private GameObject[] itemSlot;
-
+    private Animator animator;
+    private BoxCollider2D doorCollider;
 
     void Start() {
+        
+        doorCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
         itemSlot = GameObject.FindGameObjectsWithTag("itemSlot");
     }
     
     private void OnCollisionEnter2D(Collision2D other) {
+        
         GameObject player = other.gameObject;
 
         // Check if the player has the green key
         if (player.CompareTag("Player") && HasGreenKey()) {
+            
             OpenDoor();
             RemoveGreenKey();
         }
@@ -44,17 +47,16 @@ public class GreenDoor : Door
     }
 
     private void OpenDoor() {
-        // Or any other logic to "open" the door
-        transform.localScale = Vector3.zero; 
+        
+        animateDoor = true;
+        doorCollider.enabled = false;
+        
         Debug.Log("Door opened using the green key!");
     }
 
     void Update() {
         if (animateDoor) {
-            Scale = Mathf.Clamp01(Scale -= Time.deltaTime);
-            transform.localScale = Vector3.one * Scale;
-            Timer += Time.deltaTime;
-            transform.rotation = Quaternion.Euler( 720.0f * Timer * Vector3.one);
+            animator.SetTrigger("OpeningDoor"); 
         }
     }
 
@@ -63,5 +65,3 @@ public class GreenDoor : Door
         base.Interact(instigator);
     }
 }
-
-
