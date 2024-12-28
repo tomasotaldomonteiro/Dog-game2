@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDiedAnimation : MonoBehaviour {
-    
+    [SerializeField] private RespawnScript respawn;
     private Animator animator;
     private Rigidbody2D rb;
     private PlayerController dogMovement;
@@ -15,6 +15,7 @@ public class PlayerDiedAnimation : MonoBehaviour {
 
     void Start() {
         
+        respawn = GameObject.FindGameObjectWithTag("Player").GetComponent<RespawnScript>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dogMovement = GetComponent<PlayerController>();
@@ -44,7 +45,7 @@ public class PlayerDiedAnimation : MonoBehaviour {
         rb.angularVelocity = 0f;  
         
         yield return new WaitForSeconds(death1AnimationDuration);         // Wait for the animation to finish
-      
+        yield return StartCoroutine(respawn.Respawn());
     }
     public IEnumerator PlayDeathAnimationTwo(){                         // Returns an IEnumerator for the coroutine
     
@@ -56,6 +57,6 @@ public class PlayerDiedAnimation : MonoBehaviour {
         rb.angularVelocity = 0f;  
         
         yield return new WaitForSeconds(death2AnimationDuration);         // Wait for the animation to finish
-      
+        yield return StartCoroutine(respawn.Respawn());
     }
 }

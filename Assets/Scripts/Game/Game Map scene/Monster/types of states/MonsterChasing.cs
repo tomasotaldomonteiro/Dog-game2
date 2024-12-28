@@ -12,6 +12,7 @@ public class MonsterChasing : AStateBehaviour
     private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer = null;
     private ToxicCollisionDetector monsterTouchedToxic = null;
+    private ExplosionDetection explosionDetection = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
     private Animator animator;
@@ -22,6 +23,7 @@ public class MonsterChasing : AStateBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();    
         monsterSawPlayer = GetComponent<LineOfSight>();
         monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
+        explosionDetection = GetComponent<ExplosionDetection>();
         animator = GetComponent<Animator>();
 
         // Check if necessary components are assigned
@@ -35,7 +37,7 @@ public class MonsterChasing : AStateBehaviour
     {
         currentTimer = maxTimer;
         timerReachedZero = false;
-        spriteRenderer.color = Color.red;
+        //spriteRenderer.color = Color.red;
         
         previousPosition = transform.position; // Initialize previous position
     }
@@ -108,6 +110,10 @@ public class MonsterChasing : AStateBehaviour
         if (monsterTouchedToxic.HasTouchedToxicThisFrame()) {
             
             return (int)EShowcaseMonsterStates.Death; 
+        }
+        if (explosionDetection.HasExplodedThisFrame()) {
+            
+            return (int)EShowcaseMonsterStates.Exploded; 
         }
         
         return (int)EShowcaseMonsterStates.Invalid;

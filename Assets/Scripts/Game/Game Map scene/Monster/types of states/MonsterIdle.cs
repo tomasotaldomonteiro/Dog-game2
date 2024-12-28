@@ -9,6 +9,7 @@ public class MonsterIdle : AStateBehaviour {
     private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer = null;
     private ToxicCollisionDetector monsterTouchedToxic = null;
+    private ExplosionDetection explosionDetection = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
     private Animator animator;
@@ -19,6 +20,7 @@ public class MonsterIdle : AStateBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();    
         monsterSawPlayer = GetComponent<LineOfSight>();
         monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
+        explosionDetection = GetComponent<ExplosionDetection>();
         animator = GetComponent<Animator>();
         
         return monsterSawPlayer != null && monsterTouchedToxic !=null && spriteRenderer != null;
@@ -28,7 +30,7 @@ public class MonsterIdle : AStateBehaviour {
         
         currentTimer = maxTimer;
         timerReachedZero = false;
-        spriteRenderer.color = Color.green; 
+        //spriteRenderer.color = Color.green; 
     }
 
     public override void OnStateUpdate() {
@@ -66,6 +68,10 @@ public class MonsterIdle : AStateBehaviour {
         if (monsterTouchedToxic.HasTouchedToxicThisFrame()) {
             
             return (int)EShowcaseMonsterStates.Death;
+        }
+        if (explosionDetection.HasExplodedThisFrame()) {
+            
+            return (int)EShowcaseMonsterStates.Exploded; 
         }
         
         return (int)EShowcaseMonsterStates.Invalid;

@@ -30,7 +30,11 @@ public class RespawnScript : MonoBehaviour
 
     public IEnumerator Respawn(){
         
-        animator.SetTrigger("Spawning");
+        if (respawnPoint == null)
+        {
+            Debug.LogWarning("Respawn point is not set! Defaulting to the player's current position.");
+            respawnPoint = transform; // Default to current position
+        }
         playerController.enabled = false;
         
         Vector3 respawnPosition = new Vector3(

@@ -9,5 +9,6 @@ public enum EShowcaseMonsterStates
     Patrolling,
     Chasing,
     Lost,
-    Death
+    Death,
+    Exploded
 }

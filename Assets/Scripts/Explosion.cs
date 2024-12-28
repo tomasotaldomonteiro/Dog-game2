@@ -2,81 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
-{
-    [SerializeField] public float explosionRadius = 5f; 
-    [SerializeField] public GameObject explosionEffect; 
-    [SerializeField] public string targetLayerName = "Rat";
-    public Animator animator;
-    public GameObject sprite;
+public class Explosion : MonoBehaviour {
     
+    private float explosionRadius = 3f;
+    //[SerializeField] private string targetLayerName = "Rat"; 
+    [SerializeField] private string barrelLayerName = "Barrel"; 
+
+    private Animator animator;
+    private SpriteRenderer sprite;
+
     private bool isExploding = false;
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!isExploding) // Prevent multiple explosions
-        {
+
+    private void Awake(){
+        
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (!isExploding) {
+           
             Explode();
         }
     }
-    
-    
-    private void Explode()
-    {
-        isExploding = true; 
+
+    public void Explode() {
         
+        if (isExploding) return; 
+        isExploding = true;
 
-        // Play the animation
-        if (animator != null)
-        {
-            animator.SetTrigger("Explode");
-        }
+        animator.SetTrigger("Explode");
 
-        DestroyAfterAnimation();
+        GetComponent<ExplosionPlayer>()?.triggerExplosion();
+
+        TriggerNearbyExplosions();
+
+        StartCoroutine(DestroyAfterAnimation());
     }
 
-    private void DestroyAfterAnimation()
-    {
+    private void TriggerNearbyExplosions() {
         
-        // Damage nearby objects
-        Collider2D[] colliders = Physics2D.OverlapCircleAll
-            (
-                transform.position, 
-                explosionRadius, 
-                1 << LayerMask.NameToLayer(targetLayerName)
-            );
-        
-        Debug.Log(LayerMask.NameToLayer(targetLayerName));
-        Debug.Log(1 << LayerMask.NameToLayer(targetLayerName));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
 
-        // We Get The Numbered layer with
-        // LayerMask.NameToLayer(targetLayerName);
-        
-        // But the above needs a bitmasked version of it so we bit shift by that value
-        // 1 << LayerMask.NameToLayer(targetLayerName);
-        
-        // This is just in case you want all the differnt layers EXCEPT the declared layer
-        //~(1 << LayerMask.NameToLayer(targetLayerName));
-        
-        foreach (Collider2D collider in colliders)
-        {
-            Destroy(collider.gameObject);
+        foreach (Collider2D collider in colliders) {
+            
+            ExplosionDetection detection = collider.GetComponent<ExplosionDetection>();
+            if (detection != null)
+            {
+                detection.OnExplosion();
+            }
+            
+            if (collider.gameObject.layer == LayerMask.NameToLayer(barrelLayerName)){                        // Trigger other barrels
+            
+                Explosion otherBarrel = collider.GetComponent<Explosion>();
+                
+                if (otherBarrel != null && !otherBarrel.isExploding){                                     // Ensure the barrel hasn't already exploded
+                    otherBarrel.Explode();                                                                 // Trigger explosion on the other barrel
+                }
+            }
         }
-        
     }
 
-    private void Killyourself() //kill the barrel
-    {
+    private IEnumerator DestroyAfterAnimation(){
+        
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected(){
+        
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
-    }
-
-    public void DisableBarelSprite()
-    {            
-        sprite.SetActive(false);
     }
 }

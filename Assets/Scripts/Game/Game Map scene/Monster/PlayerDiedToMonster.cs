@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerDiedToMonster : MonoBehaviour {
     
-    [SerializeField] private RespawnScript respawn;
+   
     [SerializeField] private PlayerDiedAnimation dogAnimations;
     [SerializeField] private LineOfSight ratLineOfSight; 
     private Shake shake;
@@ -13,7 +13,7 @@ public class PlayerDiedToMonster : MonoBehaviour {
     void Awake() {
         
         shake = GameObject.FindGameObjectWithTag("ScreenShake").GetComponent<Shake>();
-        respawn = GameObject.FindGameObjectWithTag("Player").GetComponent<RespawnScript>();
+        
     }
     private void OnCollisionEnter2D(Collision2D other) {
         
@@ -39,6 +39,5 @@ public class PlayerDiedToMonster : MonoBehaviour {
         Physics2D.IgnoreCollision(playerCollider, GetComponent<Collider2D>(), false); 
         ratLineOfSight.TemporarilyDisableSight(false);
         
-        yield return StartCoroutine(respawn.Respawn());
     }
 }

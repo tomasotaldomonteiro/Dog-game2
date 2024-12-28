@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerDiedToToxic : MonoBehaviour {
     
-    [SerializeField] private RespawnScript respawn;
     [SerializeField] private PlayerDiedAnimation dogAnimations;
     [SerializeField] private LineOfSight ratLineOfSight; 
     private Shake shake;
@@ -14,7 +13,6 @@ public class PlayerDiedToToxic : MonoBehaviour {
     void Awake() {
         
         shake = GameObject.FindGameObjectWithTag("ScreenShake").GetComponent<Shake>();
-        respawn = GameObject.FindGameObjectWithTag("Player").GetComponent<RespawnScript>();
         rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
     private void OnCollisionEnter2D(Collision2D other) {
@@ -46,7 +44,5 @@ public class PlayerDiedToToxic : MonoBehaviour {
         Physics2D.IgnoreCollision(playerCollider, GetComponent<Collider2D>(), false); 
         ratLineOfSight.TemporarilyDisableSight(false);
         
-        
-        yield return StartCoroutine(respawn.Respawn());
     }
 }

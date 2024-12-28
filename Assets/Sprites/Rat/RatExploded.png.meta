@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2100c09678d291546af6b17aa1484c05
+guid: 103c981a731d40f42a9931e1d3489196
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RatBurned_0
+      name: RatExploded_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d22d17892f81cf408e30700621cc6e0
-      internalID: -2032246433
+      spriteID: 699ae30f251d7ab479d641cfd47f6751
+      internalID: -1349043070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_1
+      name: RatExploded_1
       rect:
         serializedVersion: 2
         x: 24
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 163b335e287a3e54b9949b5593b968a5
-      internalID: -1388022559
+      spriteID: e62cfef29d633954a9dec01981bdc316
+      internalID: 345055453
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_2
+      name: RatExploded_2
       rect:
         serializedVersion: 2
         x: 48
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e9931389378b4844a71b4155c3311ac
-      internalID: -1836779956
+      spriteID: 176c9a682ed15624d8e0a2e26cc517dc
+      internalID: 1995456512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_3
+      name: RatExploded_3
       rect:
         serializedVersion: 2
         x: 72
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 791e8a7f46692d944984b0ea750575bd
-      internalID: 1564555004
+      spriteID: 3b1fac9a380cf7948b75c1ba3474fcd0
+      internalID: -1827754289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_4
+      name: RatExploded_4
       rect:
         serializedVersion: 2
         x: 96
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 438e845b33346914799144535a7f72a3
-      internalID: 628491305
+      spriteID: 6a5a90a55c8aaac4bb2021b8d0ede4b6
+      internalID: 380781705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_5
+      name: RatExploded_5
       rect:
         serializedVersion: 2
         x: 120
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d48804c3b3369b943a12855a6082e659
-      internalID: 745365107
+      spriteID: 47c189f8b3e9b1d42a438b223c50ac89
+      internalID: -755376898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_6
+      name: RatExploded_6
       rect:
         serializedVersion: 2
         x: 144
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e85f9e734d7f0a140a8db847fc7dc662
-      internalID: -14160419
+      spriteID: 918fb66487a59af458dbdbcbdf88e105
+      internalID: 535735569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_7
+      name: RatExploded_7
       rect:
         serializedVersion: 2
         x: 168
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: deb324250f1fa2e499439aaad629248b
-      internalID: 1014472033
+      spriteID: 28feb130bb02e9e4db4090a00bfb3cbc
+      internalID: -965520928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_8
+      name: RatExploded_8
       rect:
         serializedVersion: 2
         x: 192
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7817b48186748fc46b32a275075905ea
-      internalID: 90268125
+      spriteID: f61c768343377e54591a825e1dbb38b0
+      internalID: -794841097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_9
+      name: RatExploded_9
       rect:
         serializedVersion: 2
         x: 216
@@ -300,14 +300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9885db365c675274cb82191a705111d1
-      internalID: 883786459
+      spriteID: 5588e5d40e5b24842bc797f373f82e63
+      internalID: -1757115212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_10
+      name: RatExploded_10
       rect:
         serializedVersion: 2
         x: 240
@@ -321,14 +321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ac179c4b891a0949b759b1b2e635d00
-      internalID: -298973673
+      spriteID: cf73c1d7a9d9881448e4a397cf3874a7
+      internalID: 1445181166
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_11
+      name: RatExploded_11
       rect:
         serializedVersion: 2
         x: 264
@@ -342,14 +342,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38ede2d5bbf2e9b49bac2e9f2ecc72f3
-      internalID: -1866141645
+      spriteID: 932391fac95357d4499e798fd0887809
+      internalID: 2039139952
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RatBurned_12
+      name: RatExploded_12
       rect:
         serializedVersion: 2
         x: 288
@@ -363,8 +363,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b16dc912527662c40a03a9a6493ec1e1
-      internalID: 55718270
+      spriteID: 35cd388a8fb0b6343879cdc6922802aa
+      internalID: -754386903
       vertices: []
       indices: 
       edges: []
@@ -380,19 +380,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RatBurned_0: -2032246433
-      RatBurned_1: -1388022559
-      RatBurned_10: -298973673
-      RatBurned_11: -1866141645
-      RatBurned_12: 55718270
-      RatBurned_2: -1836779956
-      RatBurned_3: 1564555004
-      RatBurned_4: 628491305
-      RatBurned_5: 745365107
-      RatBurned_6: -14160419
-      RatBurned_7: 1014472033
-      RatBurned_8: 90268125
-      RatBurned_9: 883786459
+      RatExploded_0: -1349043070
+      RatExploded_1: 345055453
+      RatExploded_10: 1445181166
+      RatExploded_11: 2039139952
+      RatExploded_12: -754386903
+      RatExploded_2: 1995456512
+      RatExploded_3: -1827754289
+      RatExploded_4: 380781705
+      RatExploded_5: -755376898
+      RatExploded_6: 535735569
+      RatExploded_7: -965520928
+      RatExploded_8: -794841097
+      RatExploded_9: -1757115212
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

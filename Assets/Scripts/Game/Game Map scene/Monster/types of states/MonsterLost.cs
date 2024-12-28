@@ -11,6 +11,7 @@ public class MonsterLost : AStateBehaviour
     private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer;
     private ToxicCollisionDetector monsterTouchedToxic = null;
+    private ExplosionDetection explosionDetection = null;
     private Animator animator;
     private Vector2 lastSeenPosition; 
     private bool reachedLastSeenPosition;
@@ -21,6 +22,7 @@ public class MonsterLost : AStateBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();    
         monsterSawPlayer = GetComponent<LineOfSight>();
         monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
+        explosionDetection = GetComponent<ExplosionDetection>();
         animator = GetComponent<Animator>();
         return true;
     }
@@ -38,7 +40,7 @@ public class MonsterLost : AStateBehaviour
 
         currentTimer = maxTimer;
         reachedLastSeenPosition = false;
-        spriteRenderer.color = Color.yellow;
+        //spriteRenderer.color = Color.yellow;
     }
 
     public override void OnStateUpdate()
@@ -87,6 +89,10 @@ public class MonsterLost : AStateBehaviour
         if (monsterTouchedToxic.HasTouchedToxicThisFrame()) {
             
             return (int)EShowcaseMonsterStates.Death; 
+        }
+        if (explosionDetection.HasExplodedThisFrame()) {
+            
+            return (int)EShowcaseMonsterStates.Exploded; 
         }
 
         // Stay in the Lost state if no other conditions are met

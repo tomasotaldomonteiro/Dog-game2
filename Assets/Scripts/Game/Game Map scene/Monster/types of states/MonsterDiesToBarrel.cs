@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterDiesToToxic : AStateBehaviour
+public class MonsterDiesToBarrel : AStateBehaviour
 {
-    private MonsterDiesManager monsterDiesManager;
+    private MonsterExplodedManager monsterExplodedManager;
     private SpriteRenderer spriteRenderer;
 
     public override bool InitializeState()
     {
-        monsterDiesManager = GetComponent<MonsterDiesManager>();
+        monsterExplodedManager = GetComponent<MonsterExplodedManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-        return monsterDiesManager != null;
+        return monsterExplodedManager != null;
     }
 
     public override void OnStateStart()
     {
-        monsterDiesManager.StartBurnAnimation();
+        monsterExplodedManager.StartExplodedAnimation();
         //spriteRenderer.color = Color.magenta;
     }
 
@@ -34,7 +34,7 @@ public class MonsterDiesToToxic : AStateBehaviour
 
     public override int StateTransitionCondition()
     {
-        if (monsterDiesManager.IsBurnAnimationFinished())
+        if (monsterExplodedManager.IsExplodedAnimationFinished())
         {
             return (int)EShowcaseMonsterStates.Invalid;
         }

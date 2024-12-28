@@ -13,6 +13,7 @@ public class MonsterPatrolling : AStateBehaviour {
     private SpriteRenderer spriteRenderer;
     private LineOfSight monsterSawPlayer = null;
     private ToxicCollisionDetector monsterTouchedToxic = null;
+    private ExplosionDetection explosionDetection = null;
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
     private Animator animator;
@@ -23,6 +24,7 @@ public class MonsterPatrolling : AStateBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         monsterSawPlayer = GetComponent<LineOfSight>();
         monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
+        explosionDetection = GetComponent<ExplosionDetection>();
         animator = GetComponent<Animator>();
         
         return spriteRenderer != null && monsterSawPlayer != null && monsterTouchedToxic != null && animator != null;
@@ -36,7 +38,7 @@ public class MonsterPatrolling : AStateBehaviour {
         
         currentTimer = maxTimer;
         timerReachedZero = false;
-        spriteRenderer.color = Color.blue;
+        //spriteRenderer.color = Color.blue;
         
         previousPosition = transform.position; // Initialize previous position
     }
@@ -104,6 +106,10 @@ public class MonsterPatrolling : AStateBehaviour {
         if (monsterTouchedToxic.HasTouchedToxicThisFrame()) {
             
             return (int)EShowcaseMonsterStates.Death; 
+        }
+        if (explosionDetection.HasExplodedThisFrame()) {
+            
+            return (int)EShowcaseMonsterStates.Exploded; 
         }
        
 
