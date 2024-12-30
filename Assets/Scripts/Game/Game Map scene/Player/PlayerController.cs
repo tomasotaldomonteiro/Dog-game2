@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour{
     private Collider2D _col;
     private RaycastHit2D _groundCheck;
     private Animator animator;
-    public bool climbing;
     
     [Header("Projectile")]
     public ProjectileBehavior projectilePrefab;
@@ -44,6 +43,7 @@ public class PlayerController : MonoBehaviour{
     private float jumpBufferTimer;
     private float coyoteTime = 0.1f;
     private float coyoteTimeTimer;
+    private bool isGrounded;
 
     [Header("Physics")]
     private float fallingTopSpeed = 20f;
@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour{
     [Header("Details")]
     [SerializeField] private LayerMask groundMask;
     public bool isFacingRight;
-    private bool isGrounded;
     public bool atHighSpeeds;
     private float atHighSpeedTime = 1f;
 
@@ -77,18 +76,13 @@ public class PlayerController : MonoBehaviour{
         atHighSpeedTimer = atHighSpeedTime;
     }
     
-    private void Update()
-    {
-       
+    private void Update() {
         
-        if (!atHighSpeeds) // Disable main movement and jump when climbing
-        {
+        if (!atHighSpeeds){                                     // Disable main movement and jump when climbing
             movement();
             jump();
         }
-
         
-
         clampFalling();
         checkGround();
         turnCheck();
@@ -100,7 +94,7 @@ public class PlayerController : MonoBehaviour{
     
     public bool ThrowStone()
     {
-        if (isCooldown) return false; // Prevent throwing during cooldown
+        if (isCooldown) return false;                               // Prevent throwing during cooldown
         
         Instantiate(projectilePrefab, LaunchOffset.position, transform.rotation);
 
@@ -118,8 +112,8 @@ public class PlayerController : MonoBehaviour{
         }
         else
         {
-            // Reset the gravity scale when grounded
-            currentGravityScale = gravity; // Or reset to your original gravity value
+            currentGravityScale = gravity; 
+            _rb.gravityScale = gravity;
         }
     }
     private void movement() {
@@ -196,6 +190,7 @@ public class PlayerController : MonoBehaviour{
         if (jumpBufferTimer > 0 && coyoteTimeTimer > 0)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, jumpPower);
+            animator.SetTrigger("Jump");
             jumpBufferTimer = 0;
         }
 
@@ -213,10 +208,13 @@ public class PlayerController : MonoBehaviour{
         if (isGrounded)
         {
             coyoteTimeTimer = coyoteTime;
+            animator.SetBool("IsGrounded", true);
         }
         else
         {
             coyoteTimeTimer -= Time.deltaTime;
+            animator.SetBool("IsGrounded", false);
+
         }
 
         // WHEN WE RELEASE THE JUMP BUTTON
@@ -232,7 +230,7 @@ public class PlayerController : MonoBehaviour{
 
         
     }
-    
+
     private void clampFalling(){
         
         if (_rb.velocity.y < fallingTopSpeed){
@@ -308,6 +306,4 @@ public class PlayerController : MonoBehaviour{
             transform.parent = null;
         }
     }
-
-    
 }

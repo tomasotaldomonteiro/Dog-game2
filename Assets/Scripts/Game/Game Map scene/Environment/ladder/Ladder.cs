@@ -8,8 +8,27 @@ public class Ladder : MonoBehaviour
   private float speed = 8f;
   private bool touchingLadder;
   private bool climbing;
+  private Animator animator;
+  private Rigidbody2D rb;
+  private BoxCollider2D boxCollider;
+
+  private Vector2 climbingOffset = new Vector2(0, 0.1f); // Offset when climbing
+  private Vector2 climbingSize = new Vector2(0.5f, 0.9f); // Size when climbing
+  private Vector2 originalOffset;
+  private Vector2 originalSize; 
   
-  [SerializeField] private Rigidbody2D rb;
+  
+  private void Awake()
+  {
+    animator = GetComponent<Animator>();
+    rb = GetComponent<Rigidbody2D>();
+    boxCollider = GetComponent<BoxCollider2D>();
+
+    // Store the original collider properties
+    originalOffset = boxCollider.offset;
+    originalSize = boxCollider.size;
+  }
+
 
   void Update()
   {
@@ -19,6 +38,7 @@ public class Ladder : MonoBehaviour
     {
       climbing = true;
     }
+   
   }
 
   private void FixedUpdate()
@@ -27,10 +47,19 @@ public class Ladder : MonoBehaviour
     {
       rb.gravityScale = 0f;
       rb.velocity = new Vector2(rb.velocity.x, speed * vertical);
+      animator.SetBool("Move", false);
+      animator.SetBool("Climbing", true);
+      
+      boxCollider.offset = climbingOffset;
+      boxCollider.size = climbingSize;
     }
     else
     {
-      rb.gravityScale = rb.gravityScale = 4F;
+      rb.gravityScale = 4F;
+      animator.SetBool("Climbing", false);
+      
+      boxCollider.offset = originalOffset;
+      boxCollider.size = originalSize;
     }
   }
  
@@ -50,6 +79,9 @@ public class Ladder : MonoBehaviour
       touchingLadder = false;
       climbing = false;
       rb.gravityScale = 4f;
+      
+      boxCollider.offset = originalOffset;
+      boxCollider.size = originalSize;
     }
   }
 }
