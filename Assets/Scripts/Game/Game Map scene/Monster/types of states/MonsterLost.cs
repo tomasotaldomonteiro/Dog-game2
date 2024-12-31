@@ -13,6 +13,7 @@ public class MonsterLost : AStateBehaviour
     private ToxicCollisionDetector monsterTouchedToxic = null;
     private ExplosionDetection explosionDetection = null;
     private Animator animator;
+    private Rigidbody2D rb;
     private Vector2 lastSeenPosition; 
     private bool reachedLastSeenPosition;
     private float currentTimer;
@@ -24,6 +25,7 @@ public class MonsterLost : AStateBehaviour
         monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
         explosionDetection = GetComponent<ExplosionDetection>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         return true;
     }
 
@@ -45,6 +47,8 @@ public class MonsterLost : AStateBehaviour
 
     public override void OnStateUpdate()
     {
+        rb.angularVelocity = 0f;
+        
         // If the timer runs out, transition to idle
         if (currentTimer > 0)
         {

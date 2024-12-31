@@ -17,6 +17,7 @@ public class MonsterPatrolling : AStateBehaviour {
     private float currentTimer;
     public bool timerReachedZero { get; private set; }
     private Animator animator;
+    private Rigidbody2D rb;
     private Vector2  previousPosition;
 
     public override bool InitializeState()
@@ -26,6 +27,7 @@ public class MonsterPatrolling : AStateBehaviour {
         monsterTouchedToxic = GetComponent<ToxicCollisionDetector>();
         explosionDetection = GetComponent<ExplosionDetection>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         
         return spriteRenderer != null && monsterSawPlayer != null && monsterTouchedToxic != null && animator != null;
     }
@@ -45,6 +47,7 @@ public class MonsterPatrolling : AStateBehaviour {
 
     public override void OnStateUpdate()
     {
+        rb.angularVelocity = 0f;
         if (currentTimer > 0)
         {
             currentTimer -= Time.deltaTime;

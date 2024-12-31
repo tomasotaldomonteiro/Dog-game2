@@ -55,6 +55,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Smoke
+    uniqueID: 1214505299
+    locked: 0
+  - name: Pillars
+    uniqueID: 4100981335
+    locked: 0
   - name: Background
     uniqueID: 2914071571
+    locked: 0
+  - name: Everything else
+    uniqueID: 2293904329
     locked: 0
