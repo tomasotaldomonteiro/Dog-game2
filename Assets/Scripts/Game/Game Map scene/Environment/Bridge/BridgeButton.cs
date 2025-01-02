@@ -13,7 +13,7 @@ public class BridgeButton : MonoBehaviour
     private void Start()
     {
         // Hide the bridge at the start
-        bridge.SetActive(false);
+        bridge.SetActive(true);
     }
 
     private void Update()

@@ -22,7 +22,9 @@ public class CooldownButton : MonoBehaviour
 
     private void Update() {
         
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !isCooldown && playerController.ThrowStone()) {
+        if (SceneStartSpawning.IsSpawning) return;
+        
+        if (Input.GetKeyDown(KeyCode.Q) && !isCooldown && playerController.ThrowStone()) {
           
             isCooldown = true;
             cooldownTimer = cooldownTime;

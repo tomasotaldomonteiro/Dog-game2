@@ -10,7 +10,13 @@ public class SceneStartSpawning : MonoBehaviour
     
     private float firstspawningAnimationDuration;    
     private bool isXMovementFrozen = false; 
-
+    
+    
+    
+    
+    public static bool IsSpawning { get; private set; }
+    
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -32,13 +38,14 @@ public class SceneStartSpawning : MonoBehaviour
         }
     }
 
-    private void StartScene1Spawning()
-    {
+    private void StartScene1Spawning() {
+        
         StartCoroutine(SpawningSequence());
     }
 
-    private IEnumerator SpawningSequence()
-    {
+    private IEnumerator SpawningSequence() {
+        
+        IsSpawning = true;
         
         playerController.enabled = false; 
         
@@ -56,6 +63,7 @@ public class SceneStartSpawning : MonoBehaviour
                                 
         isXMovementFrozen = false;                                  // Unfreeze x-axis movement and re-enable player control
         playerController.enabled = true;
+        IsSpawning = false;
     }
     
     void FixedUpdate(){

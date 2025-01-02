@@ -22,7 +22,12 @@ public class ToxicCollisionDetector : MonoBehaviour
         if (boxCollider == null) return;
 
         // Set the detection area based on the BoxCollider2D's size and offset
+        //boxCollider.size = new Vector2(boxCollider.size.x+ 1.0f, boxCollider.size.y+ 0.5f);
         detectionBoxSize = boxCollider.size;
+            
+        
+       
+       
         boxCenter = (Vector2)transform.position + boxCollider.offset;
 
         // Check for toxic collision

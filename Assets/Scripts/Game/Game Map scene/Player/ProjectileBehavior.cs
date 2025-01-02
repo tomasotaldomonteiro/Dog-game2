@@ -11,8 +11,8 @@ public class ProjectileBehavior : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;  
     [SerializeField] private PlayerController playerController;
 
-    private void Start()
-    {
+    private void Start() {
+        
         rb = GetComponent<Rigidbody2D>();
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         Vector2 launchDirection = (playerController.isFacingRight ? Vector2.right : Vector2.left) * speed;
@@ -20,8 +20,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    private void OnCollisionEnter2D(Collision2D collision) {
         Destroy(gameObject);
     }
 }

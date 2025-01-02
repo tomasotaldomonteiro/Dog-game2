@@ -13,6 +13,9 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour{
     
+    private Transform elevatorTransform;
+    private Vector3 lastElevatorPosition;
+    
     private Rigidbody2D _rb;
     private Collider2D _col;
     private RaycastHit2D _groundCheck;
@@ -88,13 +91,25 @@ public class PlayerController : MonoBehaviour{
         turnCheck();
         highSpeeds();
         gravityControl(); 
+        
+        if (elevatorTransform != null) {
+            
+            // Calculate the difference in the elevator's movement
+            Vector3 elevatorMovement = elevatorTransform.position - lastElevatorPosition;
+
+            // Move the player by the same amount
+            transform.position += elevatorMovement;
+
+            // Update the last position of the elevator
+            lastElevatorPosition = elevatorTransform.position;
+        }
     }
    
     
     
-    public bool ThrowStone()
-    {
-        if (isCooldown) return false;                               // Prevent throwing during cooldown
+    public bool ThrowStone() {
+        
+        if (isCooldown || SceneStartSpawning.IsSpawning) return false;                              // Prevent throwing during cooldown
         
         Instantiate(projectilePrefab, LaunchOffset.position, transform.rotation);
 
@@ -102,16 +117,16 @@ public class PlayerController : MonoBehaviour{
     }
 
 
-    private void gravityControl()
-    {
-        if (!isGrounded)
-        {
+    private void gravityControl() {
+        
+        if (!isGrounded) {
+            
             currentGravityScale += gravityIncreaseRate * Time.deltaTime;
             currentGravityScale = Mathf.Min(currentGravityScale, maxGravityScale); 
             _rb.gravityScale = currentGravityScale; 
-        }
-        else
-        {
+            
+        }else {
+            
             currentGravityScale = gravity; 
             _rb.gravityScale = gravity;
         }
@@ -167,8 +182,8 @@ public class PlayerController : MonoBehaviour{
             animator.SetBool("Move", false);
         }
     }
-    public bool IsMoving()
-    {
+    public bool IsMoving() {
+        
         return Mathf.Abs(_rb.velocity.x) > 0.1f; // Check if the player is moving horizontally
     }
 
@@ -205,21 +220,21 @@ public class PlayerController : MonoBehaviour{
         }
 
         // COYOTE TIMER
-        if (isGrounded)
-        {
+        if (isGrounded) {
+            
             coyoteTimeTimer = coyoteTime;
             animator.SetBool("IsGrounded", true);
-        }
-        else
-        {
+            
+        }else {
+            
             coyoteTimeTimer -= Time.deltaTime;
             animator.SetBool("IsGrounded", false);
 
         }
 
         // WHEN WE RELEASE THE JUMP BUTTON
-        if (Input.GetButtonUp("Jump") && _rb.velocity.y > 0)
-        {
+        if (Input.GetButtonUp("Jump") && _rb.velocity.y > 0) {
+            
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.5f); // Cut jump height
         }
         
@@ -291,19 +306,21 @@ public class PlayerController : MonoBehaviour{
         }
     }
     
-    private void OnCollisionEnter2D(Collision2D collision) {
-        
-        if (collision.gameObject.CompareTag("Elevator")) {
-            
-            transform.parent = collision.gameObject.transform;
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Elevator"))
+        {
+            elevatorTransform = collision.gameObject.transform;
+            lastElevatorPosition = elevatorTransform.position; // Track the elevator's initial position
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision) {
-        
-        if (collision.gameObject.CompareTag("Elevator")){
-            
-            transform.parent = null;
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Elevator"))
+        {
+            elevatorTransform = null; // Stop tracking the elevator
         }
     }
+
 }

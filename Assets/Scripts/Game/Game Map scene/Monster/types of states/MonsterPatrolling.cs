@@ -76,7 +76,7 @@ public class MonsterPatrolling : AStateBehaviour {
         if (fromAtoB)
         {
             transform.position = Vector2.MoveTowards(transform.position, pointB.transform.position, moveSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, pointB.transform.position) < 0.1f)
+            if (Vector2.Distance(transform.position, pointB.transform.position) < 0.3f)
             {
                 fromAtoB = false; // Switch direction to move towards point A
             }
@@ -84,7 +84,7 @@ public class MonsterPatrolling : AStateBehaviour {
         else
         {
             transform.position = Vector2.MoveTowards(transform.position, pointA.transform.position, moveSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, pointA.transform.position) < 0.1f)
+            if (Vector2.Distance(transform.position, pointA.transform.position) < 0.3f)
             {
                 fromAtoB = true; // Switch direction to move towards point B
             }
