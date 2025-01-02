@@ -30,8 +30,8 @@ public class RespawnScript : MonoBehaviour
 
     public IEnumerator Respawn(){
         
-        if (respawnPoint == null)
-        {
+        if (respawnPoint == null) {
+            
             Debug.LogWarning("Respawn point is not set! Defaulting to the player's current position.");
             respawnPoint = transform; // Default to current position
         }

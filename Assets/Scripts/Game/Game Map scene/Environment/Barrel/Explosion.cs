@@ -10,6 +10,7 @@ public class Explosion : MonoBehaviour {
 
     private Animator animator;
     private SpriteRenderer sprite;
+    private Collider2D explosionCollider; 
 
     private bool isExploding = false;
 
@@ -17,6 +18,7 @@ public class Explosion : MonoBehaviour {
         
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        explosionCollider = GetComponent<Collider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -30,7 +32,8 @@ public class Explosion : MonoBehaviour {
         
         if (isExploding) return; 
         isExploding = true;
-
+        explosionCollider.enabled = false;
+        
         animator.SetTrigger("Explode");
 
         GetComponent<ExplosionPlayer>()?.triggerExplosion();
