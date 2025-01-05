@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class RestAPI : MonoBehaviour
 {
-    private string uri = "http://localhost:3000/";
+    private string uri = "https://dog-shit-game.vercel.app/";
     public IEnumerator Register(string playerName, string playerPassword)
     {
         Debug.Log(playerName + " " + playerPassword);
