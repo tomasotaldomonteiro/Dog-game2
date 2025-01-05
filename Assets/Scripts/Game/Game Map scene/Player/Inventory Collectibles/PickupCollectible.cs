@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class PickupCollectible : MonoBehaviour
 {
@@ -9,9 +10,20 @@ public class PickupCollectible : MonoBehaviour
     public int collectibleID; // Unique ID for the collectible
     private bool cisInRange; // Flag to check if player is in range of the item
     public static bool Endingtwo = false;
+    private RestAPI restAPI;
 
     private void Start()
     {
+        GameObject APIManager = GameObject.Find("APIManager");
+        if (APIManager != null)
+        {
+            restAPI = APIManager.GetComponent<RestAPI>();
+        }
+        else
+        {
+            Debug.LogError("No API Manager");
+        }
+
         cinventory = GameObject.FindGameObjectWithTag("Player").GetComponent<InventoryCollectible>();
     }
 
@@ -44,9 +56,9 @@ public class PickupCollectible : MonoBehaviour
 
     private void CPickUpItem()
     {
-        if (collectibleID >= 0 && collectibleID < cinventory.collectibleSlots.Length)
+        if (collectibleID > 0 && collectibleID <= cinventory.collectibleSlots.Length +1)
         {
-            int slotIndex = collectibleID;
+            int slotIndex = collectibleID -1;
 
             // Check if the corresponding slot is empty
             if (!cinventory.collectibleIsFull[slotIndex])
@@ -60,6 +72,10 @@ public class PickupCollectible : MonoBehaviour
                 // Center the item in the slot
                 RectTransform rectTransform = newItem.GetComponent<RectTransform>();
                 rectTransform.anchoredPosition = Vector2.zero;
+
+                // Send request to server
+                string playerID = PlayerPrefs.GetString("playerID"); // Assume playerID is stored in PlayerPrefs
+                StartCoroutine(restAPI.SendCollectibleObtainedRequest(collectibleID));
 
                 // Destroy the picked-up item in the world
                 Destroy(gameObject);
@@ -78,6 +94,8 @@ public class PickupCollectible : MonoBehaviour
         }
     }
 
+    
+
     public void Finish()
     {
         Endingtwo = true; // Assume ending two is true by default
@@ -90,5 +108,12 @@ public class PickupCollectible : MonoBehaviour
             }
         }
         Debug.Log("Endingtwo is now: " + Endingtwo);
+    }
+
+    [System.Serializable]
+    private class CollectibleRequest
+    {
+        public string playerID;
+        public int collectableID;
     }
 }

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   citem: {fileID: 6104338517331529884, guid: 1767fb2d28d1d99438bb4b8b087fc342, type: 3}
-  collectibleID: 0
+  collectibleID: 5
 --- !u!58 &5192218461123992910
 CircleCollider2D:
   m_ObjectHideFlags: 0
